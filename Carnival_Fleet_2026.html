@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carnival Cruise Line Fleet Dashboard 2026</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap');
+        
+        :root {
+            --ccl-blue: #00338D; /* 카니발 브랜드 블루 */
+            --ccl-red: #E31837;  /* 카니발 브랜드 레드 */
+            --bg-gray: #F1F5F9;
+            --card-white: #FFFFFF;
+            --text-dark: #0F172A;
+            --text-light: #64748B;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            color: var(--ccl-blue);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .class-group {
+            margin-bottom: 60px;
+        }
+
+        .class-header {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ccl-blue);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--ccl-red);
+        }
+
+        .ship-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .ship-card {
+            background: var(--card-white);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .ship-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--ccl-red);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        .ship-name {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--ccl-blue);
+            min-height: 2.4em;
+            display: flex;
+            align-items: center;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .data-label {
+            color: var(--text-light);
+        }
+
+        .data-value {
+            font-weight: 600;
+        }
+
+        .refit-box {
+            margin-top: 15px;
+            padding: 10px;
+            background: #F8FAFC;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .is-major {
+            color: var(--ccl-red);
+            font-weight: 700;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 80px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        /* 상단 내비게이션 바 디자인 */
+.nav-bar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav-home {
+    font-weight: 800;
+    color: #0F172A;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.nav-home::before {
+    content: '🏠';
+    margin-right: 8px;
+}
+
+.nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.drop-btn {
+    background: #0F172A;
+    color: white;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #ffffff;
+    min-width: 220px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    z-index: 1;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    margin-top: 5px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.dropdown-content a {
+    color: #334155;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.dropdown-content a:hover {
+    background-color: #f8fafc;
+    color: #3b82f6;
+}
+
+.nav-dropdown:hover .dropdown-content {
+    display: block;
+}
+    </style>
+</head>
+<body>
+<nav class="nav-bar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-home">CRUISE HUB</a>
+        <div class="nav-dropdown">
+            <button class="drop-btn">다른 선사 보기 ▼</button>
+            <div class="dropdown-content">
+                <a href="Royal_Caribbean_2026.html">로얄 캐리비안</a>
+                <a href="MSC_Fleet_2026.html">MSC 크루즈</a>
+                <a href="Carnival_Fleet_2026.html">카니발 크루즈</a>
+                <a href="NCL_Fleet_2026.html">노르웨이지안(NCL)</a>
+                <a href="Celebrity_Fleet_2026.html">셀러브리티</a>
+                <a href="Princess_Fleet_2026.html">프린세스</a>
+                <a href="Costa_Fleet_2026.html">코스타</a>
+                <a href="Virgin_Voyages_2026.html">버진 보야지</a>
+                <a href="Silversea_Fleet_2026.html">실버씨 (럭셔리)</a>
+                <a href="Regent_Fleet_2026.html">리젠트 (럭셔리)</a>
+                <a href="Crystal_Fleet_2026.html">크리스탈 (럭셔리)</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <header>
+        <h1>Carnival Cruise Line Fleet</h1>
+        <p>카니발 크루즈 선박별 상세 제원 및 리모델링 현황 (2026)</p>
+    </header>
+
+    <div class="class-group">
+        <div class="class-header">엑셀 클래스 (Excel Class)</div>
+        <div class="ship-grid">
+            <div class="ship-card">
+                <span class="ship-name">Carnival Jubilee</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2023</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">183,521 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">34.1</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.05</span></div>
+                <div class="refit-box">리모델링: -</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Carnival Celebration</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2022</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">183,521 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">34.1</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.05</span></div>
+                <div class="refit-box">리모델링: -</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Mardi Gras</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2021</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">181,808 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">34.4</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.03</span></div>
+                <div class="refit-box">리모델링: -</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="class-group">
+        <div class="class-header">비스타 클래스 (Vista Class)</div>
+        <div class="ship-grid">
+            <div class="ship-card">
+                <span class="ship-name">Carnival Panorama</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2019</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">133,500 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">33.3</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.75</span></div>
+                <div class="refit-box">리모델링: 2024</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Carnival Horizon</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2018</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">133,500 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">33.3</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.75</span></div>
+                <div class="refit-box">리모델링: 2023</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Carnival Vista</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2016</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">133,500 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">33.3</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.75</span></div>
+                <div class="refit-box">리모델링: 2024</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="class-group">
+        <div class="class-header">드림 클래스 (Dream Class)</div>
+        <div class="ship-grid">
+            <div class="ship-card">
+                <span class="ship-name">Carnival Breeze</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2012</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">130,000 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">35.2</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.67</span></div>
+                <div class="refit-box">리모델링: 2022</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Carnival Magic</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2011</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">128,000 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">34.6</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.68</span></div>
+                <div class="refit-box">리모델링: 2021</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Carnival Dream</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2009</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">128,000 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">34.6</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.68</span></div>
+                <div class="refit-box">리모델링: 2022</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="class-group">
+        <div class="class-header">컨퀘스트 & 스플렌더 클래스 (Conquest & Splendor)</div>
+        <div class="ship-grid">
+            <div class="ship-card">
+                <span class="ship-name">Carnival Splendor</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2008</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">113,300 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">37.6</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.61</span></div>
+                <div class="refit-box">리모델링: 2024</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Carnival Freedom</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2007</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">110,000 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">36.9</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.54</span></div>
+                <div class="refit-box">리모델링: 2024</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Carnival Liberty</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2005</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">110,000 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">36.9</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.54</span></div>
+                <div class="refit-box">리모델링: 2021</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="class-group">
+        <div class="class-header">선샤인 클래스 (Sunshine Class - Major Transformation)</div>
+        <div class="ship-grid">
+            <div class="ship-card">
+                <span class="ship-name">Carnival Radiance</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2000</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">101,509 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">34.0</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.69</span></div>
+                <div class="refit-box">리모델링: <span class="is-major">2021**</span></div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Carnival Sunrise</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">1999</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">101,509 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">34.0</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.69</span></div>
+                <div class="refit-box">리모델링: <span class="is-major">2019**</span></div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Carnival Sunshine</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">1996</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">102,853 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">34.2</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.88</span></div>
+                <div class="refit-box">리모델링: <span class="is-major">2013**</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>* 카니발 선샤인 클래스는 기존 Destiny 클래스 선박을 이름부터 시설까지 완전히 바꾼 전면 개조 선박입니다.</p>
+        <p>** 표시는 대규모 기능 추가 및 브랜드 리뉴얼 리모델링을 의미합니다.</p>
+        <p>© 2026 Fleet Intelligence Service - Carnival Edition</p>
+    </div>
+</div>
+
+</body>
+</html>

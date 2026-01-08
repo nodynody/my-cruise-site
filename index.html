@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Cruise Fleet Intelligence 2026</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap');
+        
+        :root {
+            --bg: #F1F5F9;
+            --primary: #0F172A;
+            --accent: #3B82F6;
+            --card: #FFFFFF;
+            --text-main: #1E293B;
+            --text-sub: #64748B;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        header p {
+            color: var(--text-sub);
+            font-size: 1.1rem;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 40px 0 20px;
+            padding-left: 10px;
+            border-left: 5px solid var(--accent);
+        }
+
+        .fleet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .fleet-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 24px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #E2E8F0;
+        }
+
+        .fleet-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .fleet-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .fleet-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            width: fit-content;
+        }
+
+        .tag-contemporary { background: #DBEAFE; color: #1E40AF; }
+        .tag-premium { background: #FEF3C7; color: #92400E; }
+        .tag-luxury { background: #F3E8FF; color: #6B21A8; }
+
+        .fleet-desc {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .btn-view {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-view::after {
+            content: ' →';
+        }
+
+        footer {
+            margin-top: 80px;
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            padding-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Global Cruise Fleet Hub</h1>
+        <p>전 세계 주요 선사별 선단 데이터베이스 및 리모델링 현황 (2026)</p>
+    </header>
+
+    <div class="category-title">Contemporary & Premium</div>
+    <div class="fleet-grid">
+        <a href="Royal_Caribbean_2026.html" class="fleet-card">
+            <span class="fleet-tag tag-contemporary">혁신/대형</span>
+            <span class="fleet-name">Royal Caribbean</span>
+            <p class="fleet-desc">아이콘 및 오아시스 클래스를 보유한 세계 최대 규모의 선사. 리모델링(Amplified) 정보 포함.</p>
+            <span class="btn-view">상세 데이터 보기</span>
+        </a>
+
+        <a href="MSC_Fleet_2026.html" class="fleet-card">
+            <span class="fleet-tag tag-contemporary">유럽/성장</span>
+            <span class="fleet-name">MSC Cruises</span>
+            <p class="fleet-desc">월드 클래스 중심의 급성장 선사. 르네상스 프로젝트 및 최신 선단 정보.</p>
+            <span class="btn-view">상세 데이터 보기</span>
+        </a>
+
+        <a href="Carnival_Fleet_2026.html" class="fleet-card">
+            <span class="fleet-tag tag-contemporary">엔터테인먼트</span>
+            <span class="fleet-name">Carnival Cruise Line</span>
+            <p class="fleet-desc">'The Fun Ships'. 선샤인 클래스 전면 개조 및 엑셀 클래스 정보.</p>
+            <span class="btn-view">상세 데이터 보기</span>
+        </a>
+
+        <a href="NCL_Fleet_2026.html" class="fleet-card">
+            <span class="fleet-tag tag-contemporary">프리스타일</span>
+            <span class="fleet-name">Norwegian Cruise Line</span>
+            <p class="fleet-desc">자유로운 크루징과 프리마 클래스. Norwegian Edge 리뉴얼 데이터.</p>
+            <span class="btn-view">상세 데이터 보기</span>
+        </a>
+
+        <a href="Costa_Fleet_2026.html" class="fleet-card">
+            <span class="fleet-tag tag-contemporary">이탈리안 스타일</span>
+            <span class="fleet-name">Costa Cruises</span>
+            <p class="fleet-desc">이탈리아의 감성을 담은 선단. 높은 공간 효율성과 엑셀런스 클래스 정보.</p>
+            <span class="btn-view">상세 데이터 보기</span>
+        </a>
+
+        <a href="Princess_Fleet_2026.html" class="fleet-card">
+            <span class="fleet-tag tag-premium">클래식/IT기술</span>
+            <span class="fleet-name">Princess Cruises</span>
+            <p class="fleet-desc">메달리온 클래스 기술력과 스피어 클래스 신조선 데이터 리포트.</p>
+            <span class="btn-view">상세 데이터 보기</span>
+        </a>
+
+        <a href="Celebrity_Fleet_2026.html" class="fleet-card">
+            <span class="fleet-tag tag-premium">모던 럭셔리</span>
+            <span class="fleet-name">Celebrity Cruises</span>
+            <p class="fleet-desc">세련된 디자인의 엣지 클래스와 'Revolution' 리뉴얼 프로젝트 현황.</p>
+            <span class="btn-view">상세 데이터 보기</span>
+        </a>
+
+        <a href="Virgin_Voyages_2026.html" class="fleet-card">
+            <span class="fleet-tag tag-premium">성인 전용</span>
+            <span class="fleet-name">Virgin Voyages</span>
+            <p class="fleet-desc">리처드 브랜슨의 혁신적인 선단. 레이디 쉽 클래스의 올 인클루시브 정보.</p>
+            <span class="btn-view">상세 데이터 보기</span>
+        </a>
+    </div>
+
+    <div class="category-title">Ultra-Luxury & Expedition</div>
+    <div class="fleet-grid">
+        <a href="Silversea_Fleet_2026.html" class="fleet-card">
+            <span class="fleet-tag tag-luxury">초호화/탐험</span>
+            <span class="fleet-name">Silversea Cruises</span>
+            <p class="fleet-desc">전 객실 스위트와 집사 서비스. 압도적인 공간 비율과 노바 클래스 데이터.</p>
+            <span class="btn-view">상세 데이터 보기</span>
+        </a>
+
+        <a href="Regent_Fleet_2026.html" class="fleet-card">
+            <span class="fleet-tag tag-luxury">올 인클루시브</span>
+            <span class="fleet-name">Regent Seven Seas</span>
+            <p class="fleet-desc">세상에서 가장 럭셔리한 선단. 익스플로러 클래스 중심의 하이엔드 정보.</p>
+            <span class="btn-view">상세 데이터 보기</span>
+        </a>
+
+        <a href="Crystal_Fleet_2026.html" class="fleet-card">
+            <span class="fleet-tag tag-luxury">공간의 정점</span>
+            <span class="fleet-name">Crystal Cruises</span>
+            <p class="fleet-desc">2023년 재건축을 통한 극강의 1인당 톤수 데이터 및 신규 비전 리포트.</p>
+            <span class="btn-view">상세 데이터 보기</span>
+        </a>
+    </div>
+
+    <footer>
+        <p>본 데이터는 2026년 실시간 선단 정보를 기반으로 Gemini AI가 생성하였습니다.</p>
+        <p>모든 HTML 파일이 동일한 경로에 있어야 링크가 정상 작동합니다.</p>
+    </footer>
+</div>
+
+</body>
+</html>

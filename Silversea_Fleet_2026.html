@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silversea Cruises Fleet Dashboard 2026</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --slv-dark: #111111; /* 실버씨 블랙 */
+            --slv-silver: #A6A6A6; /* 실버씨 실버 */
+            --slv-light-gray: #F5F5F5;
+            --major-accent: #8E7955; /* 럭셔리 골드/브론즈 포인트 */
+            --bg-gray: #FFFFFF;
+            --card-white: #FFFFFF;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--slv-light-gray);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 40px 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 1px solid var(--slv-silver);
+            padding-bottom: 30px;
+        }
+
+        header h1 {
+            color: var(--slv-dark);
+            font-size: 2.2rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+        }
+
+        .class-group {
+            margin-bottom: 70px;
+        }
+
+        .class-header {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--slv-dark);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
+
+        .class-header::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: var(--slv-silver);
+            margin-left: 20px;
+            opacity: 0.5;
+        }
+
+        .ship-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .ship-card {
+            background: var(--card-white);
+            border-radius: 4px; /* 럭셔리 브랜드 특유의 각진 디자인 */
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            transition: all 0.4s ease;
+            border: 1px solid #EEEEEE;
+        }
+
+        .ship-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--slv-silver);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+        }
+
+        .ship-name {
+            display: block;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--slv-dark);
+            min-height: 1.2em;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #F9F9F9;
+            padding-bottom: 4px;
+        }
+
+        .data-label {
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .data-value {
+            font-weight: 600;
+            color: var(--slv-dark);
+        }
+
+        .refit-box {
+            margin-top: 20px;
+            padding: 12px;
+            background: var(--slv-light-gray);
+            border-radius: 2px;
+            text-align: center;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .is-major {
+            color: var(--major-accent);
+            font-weight: 700;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 100px;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--slv-silver);
+            padding-top: 40px;
+            letter-spacing: 1px;
+        }
+        /* 상단 내비게이션 바 디자인 */
+.nav-bar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav-home {
+    font-weight: 800;
+    color: #0F172A;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.nav-home::before {
+    content: '🏠';
+    margin-right: 8px;
+}
+
+.nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.drop-btn {
+    background: #0F172A;
+    color: white;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #ffffff;
+    min-width: 220px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    z-index: 1;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    margin-top: 5px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.dropdown-content a {
+    color: #334155;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.dropdown-content a:hover {
+    background-color: #f8fafc;
+    color: #3b82f6;
+}
+
+.nav-dropdown:hover .dropdown-content {
+    display: block;
+}
+    </style>
+</head>
+<body>
+<nav class="nav-bar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-home">CRUISE HUB</a>
+        <div class="nav-dropdown">
+            <button class="drop-btn">다른 선사 보기 ▼</button>
+            <div class="dropdown-content">
+                <a href="Royal_Caribbean_2026.html">로얄 캐리비안</a>
+                <a href="MSC_Fleet_2026.html">MSC 크루즈</a>
+                <a href="Carnival_Fleet_2026.html">카니발 크루즈</a>
+                <a href="NCL_Fleet_2026.html">노르웨이지안(NCL)</a>
+                <a href="Celebrity_Fleet_2026.html">셀러브리티</a>
+                <a href="Princess_Fleet_2026.html">프린세스</a>
+                <a href="Costa_Fleet_2026.html">코스타</a>
+                <a href="Virgin_Voyages_2026.html">버진 보야지</a>
+                <a href="Silversea_Fleet_2026.html">실버씨 (럭셔리)</a>
+                <a href="Regent_Fleet_2026.html">리젠트 (럭셔리)</a>
+                <a href="Crystal_Fleet_2026.html">크리스탈 (럭셔리)</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <header>
+        <h1>SILVERSEA</h1>
+        <p>초호화 럭셔리 선단 상세 제원 리포트 (2026)</p>
+    </header>
+
+    <div class="class-group">
+        <div class="class-header">노바 클래스 (Nova Class)</div>
+        <div class="ship-grid">
+            <div class="ship-card">
+                <span class="ship-name">Silver Ray</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2024</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">54,700 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">75.1</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">1.33</span></div>
+                <div class="refit-box">리모델링: -</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Silver Nova</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2023</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">54,700 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">75.1</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">1.33</span></div>
+                <div class="refit-box">리모델링: -</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="class-group">
+        <div class="class-header">뮤즈 클래스 (Muse Class)</div>
+        <div class="ship-grid">
+            <div class="ship-card">
+                <span class="ship-name">Silver Dawn</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2021</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">40,700 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">68.3</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">1.45</span></div>
+                <div class="refit-box">리모델링: -</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Silver Moon</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2020</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">40,700 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">68.3</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">1.45</span></div>
+                <div class="refit-box">리모델링: 2024</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Silver Muse</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2017</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">40,700 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">68.3</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">1.45</span></div>
+                <div class="refit-box">리모델링: 2024</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="class-group">
+        <div class="class-header">익스페디션 클래스 (Expedition Class)</div>
+        <div class="ship-grid">
+            <div class="ship-card">
+                <span class="ship-name">Silver Endeavour</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2021</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">20,449 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">102.2</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">1.00</span></div>
+                <div class="refit-box">최고급 극지 탐험선</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Silver Origin</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2020</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">5,800 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">58.0</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">1.11</span></div>
+                <div class="refit-box">갈라파고스 전용선</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Silver Wind</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">1994</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">17,400 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">63.5</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">1.15</span></div>
+                <div class="refit-box">리모델링: <span class="is-major">2021**</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="class-group">
+        <div class="class-header">클래식 시리즈 (Classic Ships)</div>
+        <div class="ship-grid">
+            <div class="ship-card">
+                <span class="ship-name">Silver Spirit</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2009</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">39,519 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">65.0</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">1.48</span></div>
+                <div class="refit-box">리모델링: <span class="is-major">2018**</span></div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Silver Shadow</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2000</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">28,258 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">72.8</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">1.29</span></div>
+                <div class="refit-box">리모델링: <span class="is-major">2019**</span></div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Silver Whisper</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2001</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">28,258 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">72.8</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">1.29</span></div>
+                <div class="refit-box">리모델링: <span class="is-major">2024**</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>* 실버씨 크루즈는 업계 최고 수준의 '승객 대비 승무원 비율(거의 1:1)'을 자랑합니다.</p>
+        <p>** 표시는 선체 확장(Silver Spirit) 또는 'Project Invictus'를 통한 전면적인 인테리어 현대화 리모델링을 의미합니다.</p>
+        <p>© 2026 Fleet Intelligence Service - Silversea Luxury Edition</p>
+    </div>
+</div>
+
+</body>
+</html>

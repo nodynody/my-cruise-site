@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Costa Cruises Fleet Dashboard 2026</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap');
+        
+        :root {
+            --costa-yellow: #FFD200; /* 코스타 시그니처 옐로우 */
+            --costa-blue: #003366;   /* 코스타 로고 블루 */
+            --major-red: #E31837;
+            --bg-gray: #F4F7F9;
+            --card-white: #FFFFFF;
+            --text-dark: #1E293B;
+            --text-light: #64748B;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            color: var(--costa-blue);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        header span {
+            background: var(--costa-yellow);
+            padding: 2px 10px;
+            font-weight: 600;
+            border-radius: 4px;
+        }
+
+        .class-group {
+            margin-bottom: 60px;
+        }
+
+        .class-header {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--costa-blue);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 4px solid var(--costa-yellow);
+            display: flex;
+            align-items: center;
+        }
+
+        .ship-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .ship-card {
+            background: var(--card-white);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .ship-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--costa-yellow);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        .ship-name {
+            display: block;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--costa-blue);
+            min-height: 2.4em;
+            display: flex;
+            align-items: center;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .data-label {
+            color: var(--text-light);
+        }
+
+        .data-value {
+            font-weight: 600;
+        }
+
+        .refit-box {
+            margin-top: 15px;
+            padding: 10px;
+            background: #FFFBEB;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .is-major {
+            color: var(--major-red);
+            font-weight: 700;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 80px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        /* 상단 내비게이션 바 디자인 */
+.nav-bar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav-home {
+    font-weight: 800;
+    color: #0F172A;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.nav-home::before {
+    content: '🏠';
+    margin-right: 8px;
+}
+
+.nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.drop-btn {
+    background: #0F172A;
+    color: white;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #ffffff;
+    min-width: 220px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    z-index: 1;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    margin-top: 5px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.dropdown-content a {
+    color: #334155;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.dropdown-content a:hover {
+    background-color: #f8fafc;
+    color: #3b82f6;
+}
+
+.nav-dropdown:hover .dropdown-content {
+    display: block;
+}
+    </style>
+</head>
+<body>
+<nav class="nav-bar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-home">CRUISE HUB</a>
+        <div class="nav-dropdown">
+            <button class="drop-btn">다른 선사 보기 ▼</button>
+            <div class="dropdown-content">
+                <a href="Royal_Caribbean_2026.html">로얄 캐리비안</a>
+                <a href="MSC_Fleet_2026.html">MSC 크루즈</a>
+                <a href="Carnival_Fleet_2026.html">카니발 크루즈</a>
+                <a href="NCL_Fleet_2026.html">노르웨이지안(NCL)</a>
+                <a href="Celebrity_Fleet_2026.html">셀러브리티</a>
+                <a href="Princess_Fleet_2026.html">프린세스</a>
+                <a href="Costa_Fleet_2026.html">코스타</a>
+                <a href="Virgin_Voyages_2026.html">버진 보야지</a>
+                <a href="Silversea_Fleet_2026.html">실버씨 (럭셔리)</a>
+                <a href="Regent_Fleet_2026.html">리젠트 (럭셔리)</a>
+                <a href="Crystal_Fleet_2026.html">크리스탈 (럭셔리)</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <header>
+        <h1>COSTA CRUISES</h1>
+        <p>코스타 크루즈 선단 상세 제원 및 리모델링 리포트 (2026)</p>
+    </header>
+
+    <div class="class-group">
+        <div class="class-header">엑셀런스 클래스 (Excellence Class)</div>
+        <div class="ship-grid">
+            <div class="ship-card">
+                <span class="ship-name">Costa Toscana</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2021</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">186,364 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">28.0</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.95</span></div>
+                <div class="refit-box">차세대 LNG 친환경 선박</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Costa Smeralda</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2019</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">186,364 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">28.0</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.95</span></div>
+                <div class="refit-box">리모델링: 2024</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="class-group">
+        <div class="class-header">디아데마 클래스 (Diadema Class)</div>
+        <div class="ship-grid">
+            <div class="ship-card">
+                <span class="ship-name">Costa Diadema</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2014</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">132,500 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">26.8</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.93</span></div>
+                <div class="refit-box">리모델링: <span class="is-major">2023**</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="class-group">
+        <div class="class-header">콘코르디아 & 델리지오사 클래스</div>
+        <div class="ship-grid">
+            <div class="ship-card">
+                <span class="ship-name">Costa Fascinosa</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2012</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">114,417 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">30.1</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.43</span></div>
+                <div class="refit-box">리모델링: 2022</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Costa Favolosa</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2011</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">114,417 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">30.1</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.43</span></div>
+                <div class="refit-box">리모델링: 2023</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Costa Deliziosa</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2010</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">92,720 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">32.9</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.05</span></div>
+                <div class="refit-box">리모델링: 2024</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Costa Pacifica</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2009</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">114,417 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">30.1</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.43</span></div>
+                <div class="refit-box">리모델링: <span class="is-major">2022**</span></div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">Costa Serena</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2007</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">114,417 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">30.1</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.43</span></div>
+                <div class="refit-box">리모델링: <span class="is-major">2023**</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="class-group">
+        <div class="class-header">포르투나 클래스 (Fortuna Class)</div>
+        <div class="ship-grid">
+            <div class="ship-card">
+                <span class="ship-name">Costa Fortuna</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2003</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">102,587 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">29.5</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.24</span></div>
+                <div class="refit-box">리모델링: <span class="is-major">2018**</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>* 코스타 크루즈는 유럽 최고의 가성비를 자랑하며, 승객 밀도가 다소 높은 활기찬 분위기의 선사입니다.</p>
+        <p>** 표시는 대대적인 선체 도색(신규 로고 반영) 및 인테리어 전면 개편 리모델링을 의미합니다.</p>
+        <p>© 2026 Fleet Intelligence Service - Costa Edition</p>
+    </div>
+</div>
+
+</body>
+</html>
