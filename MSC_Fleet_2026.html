@@ -3,209 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MSC Cruises Fleet Dashboard 2026</title>
+    <title>MSC Cruises Complete Fleet 2026</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap');
         
         :root {
-            --msc-navy: #001A3D; /* MSC 고유 네이비 컬러 */
-            --highlight-gold: #C5A059; /* MSC 로고의 골드 톤 */
-            --amplified-red: #E31837;
+            --msc-navy: #001A3D;
+            --msc-gold: #C5A059;
+            --major-red: #E31837;
             --bg-gray: #F8FAFC;
             --card-white: #FFFFFF;
             --text-dark: #1E293B;
             --text-light: #64748B;
         }
 
-        body {
-            font-family: 'Pretendard', sans-serif;
-            background-color: var(--bg-gray);
-            color: var(--text-dark);
-            margin: 0;
-            padding: 40px 20px;
-        }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-gray); color: var(--text-dark); margin: 0; padding: 0; }
+        
+        /* 상단 내비게이션 바 */
+        .nav-bar { background-color: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 10px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .nav-home { font-weight: 800; color: #0F172A; text-decoration: none; font-size: 1.1rem; display: flex; align-items: center; }
+        .nav-home::before { content: '🏠'; margin-right: 8px; }
+        .nav-dropdown { position: relative; display: inline-block; }
+        .drop-btn { background: #0F172A; color: white; padding: 8px 16px; font-size: 0.9rem; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; }
+        .dropdown-content { display: none; position: absolute; right: 0; background-color: #ffffff; min-width: 220px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1); z-index: 1; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 5px; max-height: 400px; overflow-y: auto; }
+        .dropdown-content a { color: #334155; padding: 12px 16px; text-decoration: none; display: block; font-size: 0.9rem; border-bottom: 1px solid #f1f5f9; }
+        .dropdown-content a:hover { background-color: #f8fafc; color: #3b82f6; }
+        .nav-dropdown:hover .dropdown-content { display: block; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        h1 {
-            color: var(--msc-navy);
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .class-group {
-            margin-bottom: 60px;
-        }
-
-        .class-header {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--msc-navy);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--highlight-gold);
-        }
-
-        .ship-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .ship-card {
-            background: var(--card-white);
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
-
-        .ship-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--msc-navy);
-            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-        }
-
-        .ship-name {
-            display: block;
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--msc-navy);
-            min-height: 2.4em;
-            display: flex;
-            align-items: center;
-        }
-
-        .data-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
-
-        .data-label {
-            color: var(--text-light);
-        }
-
-        .data-value {
-            font-weight: 600;
-        }
-
-        .refit-box {
-            margin-top: 15px;
-            padding: 10px;
-            background: #F1F5F9;
-            border-radius: 6px;
-            text-align: center;
-            font-size: 0.85rem;
-        }
-
-        .is-major {
-            color: var(--amplified-red);
-            font-weight: 700;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 80px;
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-        /* 상단 내비게이션 바 디자인 */
-.nav-bar {
-    background-color: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
-    padding: 10px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-
-.nav-home {
-    font-weight: 800;
-    color: #0F172A;
-    text-decoration: none;
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-}
-
-.nav-home::before {
-    content: '🏠';
-    margin-right: 8px;
-}
-
-.nav-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.drop-btn {
-    background: #0F172A;
-    color: white;
-    padding: 8px 16px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #ffffff;
-    min-width: 220px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-    z-index: 1;
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
-    margin-top: 5px;
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-.dropdown-content a {
-    color: #334155;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    font-size: 0.9rem;
-    border-bottom: 1px solid #f1f5f9;
-}
-
-.dropdown-content a:hover {
-    background-color: #f8fafc;
-    color: #3b82f6;
-}
-
-.nav-dropdown:hover .dropdown-content {
-    display: block;
-}
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        header { text-align: center; margin-bottom: 50px; }
+        header h1 { color: var(--msc-navy); font-size: 2.5rem; margin-bottom: 10px; }
+        .class-group { margin-bottom: 60px; }
+        .class-header { font-size: 1.5rem; font-weight: 700; color: var(--msc-navy); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid var(--msc-gold); }
+        .ship-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .ship-card { background: var(--card-white); border-radius: 12px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: all 0.3s ease; border: 1px solid transparent; }
+        .ship-card:hover { transform: translateY(-5px); border-color: var(--msc-navy); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+        .ship-name { display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 15px; color: var(--msc-navy); min-height: 2.4em; display: flex; align-items: center; }
+        .data-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; }
+        .data-label { color: var(--text-light); }
+        .data-value { font-weight: 600; }
+        .refit-box { margin-top: 15px; padding: 10px; background: #F1F5F9; border-radius: 6px; text-align: center; font-size: 0.85rem; }
+        .is-major { color: var(--major-red); font-weight: 700; }
+        .footer { text-align: center; margin-top: 80px; color: var(--text-light); font-size: 0.9rem; }
     </style>
 </head>
 <body>
+
 <nav class="nav-bar">
     <div class="nav-container">
         <a href="index.html" class="nav-home">CRUISE HUB</a>
@@ -227,10 +71,11 @@
         </div>
     </div>
 </nav>
+
 <div class="container">
     <header>
-        <h1>MSC Cruises Fleet Status</h1>
-        <p>MSC 크루즈 클래스별 상세 제원 및 리모델링 리포트 (2026)</p>
+        <h1>MSC Cruises Complete Fleet</h1>
+        <p>2026년 기준 MSC 전 선단(24척) 상세 제원 리포트</p>
     </header>
 
     <div class="class-group">
@@ -264,153 +109,59 @@
     </div>
 
     <div class="class-group">
-        <div class="class-header">메라비글리아 플러스 클래스 (Meraviglia Plus Class)</div>
+        <div class="class-header">메라비글리아 클래스 (Meraviglia & Plus Class)</div>
         <div class="ship-grid">
-            <div class="ship-card">
-                <span class="ship-name">MSC Euribia</span>
-                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2023</span></div>
-                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">184,011 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">29.1</span></div>
-                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.71</span></div>
-                <div class="refit-box">리모델링: -</div>
-            </div>
-            <div class="ship-card">
-                <span class="ship-name">MSC Virtuosa</span>
-                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2021</span></div>
-                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">181,541 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">28.7</span></div>
-                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.71</span></div>
-                <div class="refit-box">리모델링: -</div>
-            </div>
-            <div class="ship-card">
-                <span class="ship-name">MSC Grandiosa</span>
-                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2019</span></div>
-                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">181,541 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">28.7</span></div>
-                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.71</span></div>
-                <div class="refit-box">리모델링: -</div>
-            </div>
+            <div class="ship-card"><span class="ship-name">MSC Euribia</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2023</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">184,011 GT</span></div><div class="refit-box">리모델링: -</div></div>
+            <div class="ship-card"><span class="ship-name">MSC Virtuosa</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2021</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">181,541 GT</span></div><div class="refit-box">리모델링: -</div></div>
+            <div class="ship-card"><span class="ship-name">MSC Grandiosa</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2019</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">181,541 GT</span></div><div class="refit-box">리모델링: -</div></div>
+            <div class="ship-card"><span class="ship-name">MSC Bellissima</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2019</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">171,598 GT</span></div><div class="refit-box">리모델링: 2024</div></div>
+            <div class="ship-card"><span class="ship-name">MSC Meraviglia</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2017</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">171,598 GT</span></div><div class="refit-box">리모델링: 2022</div></div>
         </div>
     </div>
 
     <div class="class-group">
-        <div class="class-header">씨사이드 클래스 (Seaside / Seaside EVO Class)</div>
+        <div class="class-header">씨사이드 클래스 (Seaside & EVO Class)</div>
         <div class="ship-grid">
-            <div class="ship-card">
-                <span class="ship-name">MSC Seascape</span>
-                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2022</span></div>
-                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">170,412 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">31.6</span></div>
-                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.31</span></div>
-                <div class="refit-box">리모델링: -</div>
-            </div>
-            <div class="ship-card">
-                <span class="ship-name">MSC Seashore</span>
-                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2021</span></div>
-                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">170,412 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">31.6</span></div>
-                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.31</span></div>
-                <div class="refit-box">리모델링: -</div>
-            </div>
-            <div class="ship-card">
-                <span class="ship-name">MSC Seaview</span>
-                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2018</span></div>
-                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">153,516 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">28.8</span></div>
-                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.58</span></div>
-                <div class="refit-box">리모델링: 2023</div>
-            </div>
-            <div class="ship-card">
-                <span class="ship-name">MSC Seaside</span>
-                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2017</span></div>
-                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">153,516 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">28.8</span></div>
-                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.58</span></div>
-                <div class="refit-box">리모델링: 2022</div>
-            </div>
+            <div class="ship-card"><span class="ship-name">MSC Seascape</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2022</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">170,412 GT</span></div><div class="refit-box">리모델링: -</div></div>
+            <div class="ship-card"><span class="ship-name">MSC Seashore</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2021</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">170,412 GT</span></div><div class="refit-box">리모델링: -</div></div>
+            <div class="ship-card"><span class="ship-name">MSC Seaview</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2018</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">153,516 GT</span></div><div class="refit-box">리모델링: 2023</div></div>
+            <div class="ship-card"><span class="ship-name">MSC Seaside</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2017</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">153,516 GT</span></div><div class="refit-box">리모델링: 2022</div></div>
         </div>
     </div>
 
     <div class="class-group">
         <div class="class-header">판타지아 클래스 (Fantasia Class)</div>
         <div class="ship-grid">
-            <div class="ship-card">
-                <span class="ship-name">MSC Preziosa</span>
-                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2013</span></div>
-                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">139,400 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">32.2</span></div>
-                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.15</span></div>
-                <div class="refit-box">리모델링: 2024</div>
-            </div>
-            <div class="ship-card">
-                <span class="ship-name">MSC Divina</span>
-                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2012</span></div>
-                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">139,400 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">32.2</span></div>
-                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.15</span></div>
-                <div class="refit-box">리모델링: 2021</div>
-            </div>
-            <div class="ship-card">
-                <span class="ship-name">MSC Splendida</span>
-                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2009</span></div>
-                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">137,936 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">31.9</span></div>
-                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.27</span></div>
-                <div class="refit-box">리모델링: <span class="is-major">2024**</span></div>
-            </div>
-            <div class="ship-card">
-                <span class="ship-name">MSC Fantasia</span>
-                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2008</span></div>
-                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">137,936 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">31.9</span></div>
-                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.27</span></div>
-                <div class="refit-box">리모델링: <span class="is-major">2023**</span></div>
-            </div>
+            <div class="ship-card"><span class="ship-name">MSC Preziosa</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2013</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">139,400 GT</span></div><div class="refit-box">리모델링: 2024</div></div>
+            <div class="ship-card"><span class="ship-name">MSC Divina</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2012</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">139,400 GT</span></div><div class="refit-box">리모델링: 2021</div></div>
+            <div class="ship-card"><span class="ship-name">MSC Splendida</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2009</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">137,936 GT</span></div><div class="refit-box">리모델링: <span class="is-major">2024**</span></div></div>
+            <div class="ship-card"><span class="ship-name">MSC Fantasia</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2008</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">137,936 GT</span></div><div class="refit-box">리모델링: <span class="is-major">2023**</span></div></div>
         </div>
     </div>
 
     <div class="class-group">
-        <div class="class-header">리리카 클래스 (Lirica Class - Renaissance Project)</div>
+        <div class="class-header">뮤지카 클래스 (Musica Class)</div>
         <div class="ship-grid">
-            <div class="ship-card">
-                <span class="ship-name">MSC Opera</span>
-                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2004</span></div>
-                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">65,591 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">24.5</span></div>
-                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.59</span></div>
-                <div class="refit-box">리모델링: <span class="is-major">2015**</span></div>
-            </div>
-            <div class="ship-card">
-                <span class="ship-name">MSC Lirica</span>
-                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2003</span></div>
-                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">65,591 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">24.5</span></div>
-                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.59</span></div>
-                <div class="refit-box">리모델링: <span class="is-major">2015**</span></div>
-            </div>
-            <div class="ship-card">
-                <span class="ship-name">MSC Sinfonia</span>
-                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2002</span></div>
-                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">65,542 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">24.5</span></div>
-                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.59</span></div>
-                <div class="refit-box">리모델링: <span class="is-major">2015**</span></div>
-            </div>
-            <div class="ship-card">
-                <span class="ship-name">MSC Armonia</span>
-                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2001</span></div>
-                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">65,542 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">24.5</span></div>
-                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">3.59</span></div>
-                <div class="refit-box">리모델링: <span class="is-major">2014**</span></div>
-            </div>
+            <div class="ship-card"><span class="ship-name">MSC Magnifica</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2010</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">95,128 GT</span></div><div class="refit-box">리모델링: <span class="is-major">2021**</span></div></div>
+            <div class="ship-card"><span class="ship-name">MSC Poesia</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2008</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">92,627 GT</span></div><div class="refit-box">리모델링: 2022</div></div>
+            <div class="ship-card"><span class="ship-name">MSC Orchestra</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2007</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">92,409 GT</span></div><div class="refit-box">리모델링: 2023</div></div>
+            <div class="ship-card"><span class="ship-name">MSC Musica</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2006</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">92,409 GT</span></div><div class="refit-box">리모델링: 2024</div></div>
+        </div>
+    </div>
+
+    <div class="class-group">
+        <div class="class-header">리리카 클래스 (Lirica Class)</div>
+        <div class="ship-grid">
+            <div class="ship-card"><span class="ship-name">MSC Opera</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2004</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">65,591 GT</span></div><div class="refit-box">리모델링: <span class="is-major">2015**</span></div></div>
+            <div class="ship-card"><span class="ship-name">MSC Lirica</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2003</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">65,591 GT</span></div><div class="refit-box">리모델링: <span class="is-major">2015**</span></div></div>
+            <div class="ship-card"><span class="ship-name">MSC Sinfonia</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2002</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">65,542 GT</span></div><div class="refit-box">리모델링: <span class="is-major">2015**</span></div></div>
+            <div class="ship-card"><span class="ship-name">MSC Armonia</span><div class="data-row"><span class="data-label">건조</span><span class="data-value">2001</span></div><div class="data-row"><span class="data-label">톤수</span><span class="data-value">65,542 GT</span></div><div class="refit-box">리모델링: <span class="is-major">2014**</span></div></div>
         </div>
     </div>
 
     <div class="footer">
-        <p>* MSC 크루즈는 '르네상스 프로젝트'를 통해 구형 선박들의 선체를 절단하고 확장하는 대규모 리모델링을 진행한 바 있습니다.</p>
-        <p>** 표시는 선체 확장 또는 시설 전면 개편급 리모델링을 의미합니다.</p>
-        <p>© 2026 Fleet Intelligence Service - MSC Edition</p>
+        <p>* MSC 선단은 총 24척으로 구성되어 있습니다. ** 표시는 선체 확장 프로젝트 또는 전면 리뉴얼을 의미합니다.</p>
+        <p>© 2026 Fleet Intelligence Service - Complete MSC Edition</p>
     </div>
 </div>
 
