@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holland America Line Official Fleet Data 2026</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap');
+        
+        :root {
+            /* 홀란드 아메리카 브랜드 컬러: 미드나잇 블루 & 헤리티지 골드 */
+            --hal-blue: #002C5F;
+            --hal-gold: #B4975A;
+            --major-red: #E31837;
+            --bg-gray: #F8FAFC;
+            --card-white: #FFFFFF;
+            --text-dark: #1E293B;
+            --text-light: #64748B;
+        }
+
+        body { 
+            font-family: 'Pretendard', sans-serif; 
+            background-color: var(--bg-gray); 
+            color: var(--text-dark); 
+            margin: 0; 
+            padding: 40px 20px;
+        }
+        
+        .nav-bar { 
+            background-color: #ffffff; 
+            border-bottom: 1px solid #e2e8f0; 
+            padding: 10px 0; 
+            position: sticky; 
+            top: -40px; 
+            margin: -40px -20px 40px -20px; 
+            z-index: 1000; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+        }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .nav-home { font-weight: 800; color: #0F172A; text-decoration: none; font-size: 1.1rem; display: flex; align-items: center; }
+        .nav-home::before { content: '🏠'; margin-right: 8px; }
+        .nav-dropdown { position: relative; display: inline-block; }
+        .drop-btn { background: #0F172A; color: white; padding: 8px 16px; font-size: 0.9rem; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; }
+        .dropdown-content { display: none; position: absolute; right: 0; background-color: #ffffff; min-width: 220px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1); z-index: 1; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 5px; max-height: 400px; overflow-y: auto; }
+        .dropdown-content a { color: #334155; padding: 12px 16px; text-decoration: none; display: block; font-size: 0.9rem; border-bottom: 1px solid #f1f5f9; }
+        .dropdown-content a:hover { background-color: #f8fafc; color: #3b82f6; }
+        .nav-dropdown:hover .dropdown-content { display: block; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0; }
+        header { text-align: center; margin-bottom: 50px; }
+        header h1 { color: var(--hal-blue); font-size: 2.5rem; margin-bottom: 10px; font-weight: 800; }
+        .class-group { margin-bottom: 60px; }
+        .class-header { font-size: 1.5rem; font-weight: 700; color: var(--hal-blue); margin-bottom: 25px; padding-bottom: 10px; border-bottom: 3px solid var(--hal-gold); }
+        .ship-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .ship-card { background: var(--card-white); border-radius: 12px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: all 0.3s ease; border: 1px solid transparent; }
+        .ship-card:hover { transform: translateY(-5px); border-color: var(--hal-blue); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+        .ship-name { display: block; font-size: 1.25rem; font-weight: 700; margin-bottom: 15px; color: var(--hal-blue); min-height: 2.4em; display: flex; align-items: center; }
+        
+        .data-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; border-bottom: 1px solid #F1F5F9; padding-bottom: 4px; }
+        .data-label { color: var(--text-light); }
+        .data-value { font-weight: 600; color: #334155; }
+        
+        .refit-box { margin-top: 15px; padding: 10px; background: #F8FAFC; border: 1px dashed #CBD5E1; border-radius: 6px; text-align: center; font-size: 0.85rem; color: var(--hal-blue); }
+        .is-major { color: var(--major-red); font-weight: 700; }
+        .footer { text-align: center; margin-top: 80px; color: var(--text-light); font-size: 0.9rem; padding-bottom: 40px; }
+    </style>
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-home">CRUISE HUB</a>
+        <div class="nav-dropdown">
+            <button class="drop-btn">다른 선사 보기 ▼</button>
+            <div class="dropdown-content">
+                <a href="Royal_Caribbean_2026.html">로얄 캐리비안</a>
+                <a href="MSC_Fleet_2026.html">MSC 크루즈</a>
+                <a href="Carnival_Fleet_2026.html">카니발 크루즈</a>
+                <a href="NCL_Fleet_2026.html">노르웨이지안 (NCL)</a>
+                <a href="Costa_Fleet_2026.html">코스타</a>
+                <a href="Princess_Fleet_2026.html">프린세스</a>
+                <a href="Celebrity_Fleet_2026.html">셀러브리티</a>
+                <a href="Virgin_Voyages_2026.html">버진 보야지</a>
+                <a href="Holland_America_Fleet_2026.html">홀란드 아메리카</a>
+                <a href="Azamara_Fleet_2026.html">아자마라</a>
+                <a href="Oceania_Fleet_2026.html">오세아니아</a>
+                
+                <a href="Silversea_Fleet_2026.html" style="background-color: #f8fafc; font-weight: bold;">[럭셔리] 실버씨</a>
+                <a href="Regent_Fleet_2026.html" style="background-color: #f8fafc; font-weight: bold;">[럭셔리] 리젠트 세븐시즈</a>
+                <a href="Crystal_Fleet_2026.html" style="background-color: #f8fafc; font-weight: bold;">[럭셔리] 크리스탈</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <header>
+        <h1>Holland America Line Official Fleet</h1>
+        <p>전 선단(11척) 제원 및 리모델링 리포트 (2026)</p>
+    </header>
+
+    <div class="class-group">
+        <div class="class-header">피나클 클래스 (Pinnacle Class)</div>
+        <div class="ship-grid">
+            <div class="ship-card">
+                <span class="ship-name">MS Rotterdam</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2021</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">99,863 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">37.5</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.54</span></div>
+                <div class="refit-box">리모델링: -</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">MS Nieuw Statendam</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2018</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">99,500 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">37.3</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.55</span></div>
+                <div class="refit-box">리모델링: 2023</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">MS Koningsdam</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2016</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">99,500 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">37.3</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.57</span></div>
+                <div class="refit-box">리모델링: 2023</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="class-group">
+        <div class="class-header">시그니처 클래스 (Signature Class)</div>
+        <div class="ship-grid">
+            <div class="ship-card">
+                <span class="ship-name">MS Nieuw Amsterdam</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2010</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">86,700 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">41.1</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.28</span></div>
+                <div class="refit-box">리모델링: 2024</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">MS Eurodam</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2008</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">86,273 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">40.9</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.29</span></div>
+                <div class="refit-box">리모델링: 2023</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="class-group">
+        <div class="class-header">비스타 클래스 (Vista Class)</div>
+        <div class="ship-grid">
+            <div class="ship-card">
+                <span class="ship-name">MS Noordam</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2006</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">82,318 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">42.8</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.34</span></div>
+                <div class="refit-box">리모델링: <span class="is-major">2024**</span></div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">MS Westerdam</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2004</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">82,305 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">42.8</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.35</span></div>
+                <div class="refit-box">리모델링: 2023</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">MS Oosterdam</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2003</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">82,305 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">42.8</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.35</span></div>
+                <div class="refit-box">리모델링: 2024</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">MS Zuiderdam</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2002</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">82,305 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">42.8</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.35</span></div>
+                <div class="refit-box">리모델링: 2022</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="class-group">
+        <div class="class-header">R 클래스 (R-Class / Classic)</div>
+        <div class="ship-grid">
+            <div class="ship-card">
+                <span class="ship-name">MS Zaandam</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2000</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">61,396 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">42.8</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.31</span></div>
+                <div class="refit-box">리모델링: 2023</div>
+            </div>
+            <div class="ship-card">
+                <span class="ship-name">MS Volendam</span>
+                <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">1999</span></div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">61,214 GT</span></div>
+                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">42.7</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.30</span></div>
+                <div class="refit-box">리모델링: 2024</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>* 홀란드 아메리카는 중형급 선박을 통해 대형 선사보다 여유로운 공간과 클래식한 서비스를 제공합니다.</p>
+        <p>** 표시는 최신 브랜드 규격에 맞춘 전면적인 인테리어 업데이트 및 카지노/레스토랑 확장을 의미합니다.</p>
+        <p>© 2026 Fleet Intelligence Service - Holland America Edition</p>
+    </div>
+</div>
+
+</body>
+</html>
