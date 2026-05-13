@@ -3,52 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>알래스카 크루즈 예약 센터</title>
+    <title>VIP 혜택 적용 - House of Dreams</title>
     <style>
         body {
-            margin: 0; padding: 0; height: 100vh;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            background-color: #f4f7f9; font-family: 'Apple SD Gothic Neo', sans-serif;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            height: 100vh; margin: 0; background-color: #ffffff; font-family: sans-serif;
         }
-        .loader {
-            border: 5px solid #e1e1e1;
-            border-top: 5px solid #004b91;
-            border-radius: 50%;
-            width: 50px; height: 50px;
-            animation: spin 1s linear infinite;
+        .btn-booking {
+            background-color: #004b91; color: white; padding: 20px 40px;
+            font-size: 1.2rem; font-weight: bold; border: none; border-radius: 50px;
+            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .text { margin-top: 25px; color: #333; font-size: 1.1rem; font-weight: 500; }
-        .sub-text { margin-top: 10px; color: #888; font-size: 0.9rem; }
+        .btn-booking:active { transform: scale(0.98); }
+        .info-text { margin-top: 25px; color: #666; text-align: center; line-height: 1.6; font-size: 0.95rem; }
     </style>
 </head>
 <body>
 
-    <div class="loader"></div>
-    <p class="text">VIP 프로모션 혜택을 적용 중입니다...</p>
-    <p class="sub-text">잠시 후 폴리트립스 예약 페이지로 이동합니다.</p>
-
-    <iframe 
-        id="promoFrame" 
-        src="https://www.polytrips.com/?_rcode_=VIP123" 
-        style="display:none;" 
-        onload="redirect()">
-    </iframe>
+    <button onclick="relayRedirect()" class="btn-booking">
+        VIP 혜택 적용하고 예약하기
+    </button>
+    
+    <p id="status" class="info-text">
+        버튼을 누르면 <strong>VIP123</strong> 코드가 적용된<br>
+        예약 페이지로 안전하게 이동합니다.
+    </p>
 
     <script>
-        function redirect() {
+        function relayRedirect() {
+            // 버튼 클릭 시 문구 변경
+            document.getElementById('status').innerHTML = "VIP 코드를 등록 중입니다...<br>잠시만 기다려 주세요.";
+            
+            // 1단계: 먼저 메인 도메인(코드 주입용)으로 이동합니다.
+            // 이때 주소 뒤에 리다이렉트 시킬 최종 목적지를 파라미터로 붙여보거나, 
+            // 사이트가 지원하지 않는다면 자바스크립트로 강제 순차 이동을 시킵니다.
+            
+            const promoUrl = "https://www.polytrips.com/?_rcode_=VIP123";
             const targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1523739--Alaska---Seattle?siid=1226793&lang=16";
-            // 0.3초 여유를 두고 이동 (쿠키 안정성 확보)
+
+            // [핵심] 현재 창에서 먼저 코드를 심는 주소로 보냅니다.
+            window.location.href = promoUrl;
+
+            // 2단계: 메인 페이지가 로드되면서 쿠키가 심어지는 찰나(약 0.5~0.8초) 뒤에 
+            // 상세 페이지로 다시 튕겨주도록 시도합니다.
+            // (참고: 이 로직은 사용자가 버튼을 눌러 promoUrl로 이동한 직후 브라우저 실행 스택에 남아 작동합니다.)
             setTimeout(function() {
                 window.location.replace(targetUrl);
-            }, 300);
+            }, 700);
         }
-
-        // 혹시 모를 로딩 지연 대비 (5초 후 강제이동)
-        setTimeout(function() {
-            window.location.replace("https://cruises.polytrips.com/swift/cruise/package/1523739--Alaska---Seattle?siid=1226793&lang=16");
-        }, 5000);
     </script>
+
 </body>
 </html>
