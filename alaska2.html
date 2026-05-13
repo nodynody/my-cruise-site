@@ -3,65 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>House of Dreams - Cruise Booking</title>
+    <title>VIP 혜택 적용 - House of Dreams</title>
     <style>
-        body {
-            margin: 0; padding: 0; height: 100vh;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            background-color: #ffffff; font-family: 'Apple SD Gothic Neo', sans-serif;
-        }
-        .container { text-align: center; padding: 20px; }
-        .logo { font-size: 1.5rem; font-weight: bold; color: #004b91; margin-bottom: 40px; }
-        h1 { font-size: 1.8rem; color: #222; margin-bottom: 10px; }
-        p { color: #666; margin-bottom: 40px; line-height: 1.6; }
-        
-        .promo-btn {
-            background-color: #004b91;
-            color: #fff;
-            padding: 20px 50px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0,75,145,0.2);
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        .promo-btn:hover {
-            background-color: #00366b;
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(0,75,145,0.3);
-        }
-        .footer-note { margin-top: 30px; font-size: 0.85rem; color: #aaa; }
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #f8f9fa; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; }
+        .promo-code { background: #eef2f6; border: 2px dashed #004b91; padding: 10px; font-size: 1.5rem; font-weight: bold; color: #004b91; margin: 20px 0; border-radius: 10px; cursor: pointer; }
+        .btn-go { background: #004b91; color: white; border: none; padding: 15px 30px; border-radius: 50px; font-size: 1.1rem; cursor: pointer; width: 100%; font-weight: bold; }
+        .tip { font-size: 0.85rem; color: #888; margin-top: 15px; line-height: 1.4; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="logo">HOUSE OF DREAMS</div>
-        <h1>알래스카 크루즈 특가 예약</h1>
-        <p>아래 버튼을 클릭하시면 <strong>VIP123</strong> 프로모션 코드가<br>자동 적용된 예약 페이지로 연결됩니다.</p>
-        
-        <button onclick="applyAndGo()" class="promo-btn">
-            할인 혜택 받고 예약하기
-        </button>
+<div class="card">
+    <h2>VIP 혜택 적용하기</h2>
+    <p>아래 코드를 클릭하여 복사한 후<br>예약 페이지에서 사용하세요!</p>
+    
+    <!-- 클릭 시 자동 복사 기능 -->
+    <div class="promo-code" onclick="copyCode()">VIP123</div>
 
-        <div class="footer-note">※ 폴리트립스 공식 파트너 혜택이 적용됩니다.</div>
+    <button class="btn-go" onclick="goToCruise()">예약 페이지로 이동</button>
+
+    <div class="tip">
+        ※ 인앱 브라우저(스레드/인스타) 이용 시,<br>
+        <strong>'브라우저로 열기'</strong> 후 예약하셔야 혜택이 안전하게 적용됩니다.
     </div>
+</div>
 
-    <script>
-        function applyAndGo() {
-            // 버튼 클릭 시점에 보이지 않게 쿠키 주입
-            const img = new Image();
-            img.src = "https://www.polytrips.com/?_rcode_=VIP123";
+<script>
+    function copyCode() {
+        const code = "VIP123";
+        navigator.clipboard.writeText(code).then(() => {
+            alert("프로모션 코드가 복사되었습니다! 회원가입 시 붙여넣어 주세요.");
+        });
+    }
 
-            // 0.4초 후 상세 페이지로 이동
-            setTimeout(function() {
-                window.location.href = "https://cruises.polytrips.com/swift/cruise/package/1523739--Alaska---Seattle?siid=1226793&lang=16";
-            }, 400);
-        }
-    </script>
+    function goToCruise() {
+        // 먼저 코드를 심는 페이지를 새 창으로 시도 (쿠키 주입 시도)
+        window.open("https://www.polytrips.com/?_rcode_=VIP123", "_blank");
+        // 본 창은 상세 페이지로 이동
+        location.href = "https://cruises.polytrips.com/swift/cruise/package/1523739--Alaska---Seattle?siid=1226793&lang=16";
+    }
+</script>
+
 </body>
 </html>
