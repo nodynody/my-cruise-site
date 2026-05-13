@@ -3,38 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIP 혜택 적용 - House of Dreams</title>
+    <title>알래스카 크루즈 특가 예약 - House of Dreams</title>
     <style>
-        /* 이전과 동일한 스타일 */
-        body { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif; }
-        .btn-booking { background-color: #004b91; color: white; padding: 20px 40px; font-size: 1.2rem; border: none; border-radius: 50px; cursor: pointer; }
+        :root {
+            --ncl-color: #004b91;
+            --princess-color: #002e5d;
+            --virgin-color: #e60000;
+            --bg-color: #f0f4f8;
+        }
+
+        body { 
+            display: flex; flex-direction: column; align-items: center; 
+            min-height: 100vh; margin: 0; background-color: var(--bg-color); 
+            font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif; 
+            padding: 40px 15px;
+        }
+
+        .container {
+            background: white; padding: 40px 25px; border-radius: 30px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08); text-align: center; 
+            width: 100%; max-width: 650px;
+        }
+
+        h1 { font-size: 1.8rem; color: #333; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .sub-title { color: #666; margin-bottom: 35px; font-size: 1rem; line-height: 1.6; }
+
+        .cruise-card {
+            background: #fff; border: 1px solid #eee; border-radius: 20px;
+            padding: 25px; margin-bottom: 40px; text-align: left;
+            position: relative; overflow: hidden;
+        }
+
+        /* 선사별 포인트 상단 바 */
+        .card-accent { position: absolute; top: 0; left: 0; width: 100%; height: 5px; }
+        .ncl .card-accent { background: var(--ncl-color); }
+        .princess .card-accent { background: var(--princess-color); }
+        .virgin .card-accent { background: var(--virgin-color); }
+
+        .cruise-badge {
+            display: inline-block; padding: 4px 12px; border-radius: 50px; 
+            font-size: 0.75rem; font-weight: bold; margin-bottom: 12px; color: white;
+        }
+        .ncl .cruise-badge { background: var(--ncl-color); }
+        .princess .cruise-badge { background: var(--princess-color); }
+        .virgin .cruise-badge { background: var(--virgin-color); }
+
+        .cruise-info-header { font-size: 1.15rem; font-weight: 700; color: #222; margin-bottom: 15px; line-height: 1.4; }
+
+        .itinerary-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 25px; color: #444; }
+        .itinerary-table th { text-align: left; padding: 10px 5px; border-bottom: 2px solid #f0f0f0; color: #888; font-weight: normal; }
+        .itinerary-table td { padding: 10px 5px; border-bottom: 1px solid #f9f9f9; vertical-align: top; }
+        .day-col { width: 45px; font-weight: bold; color: #333; }
+        .time-col { color: #888; font-size: 0.75rem; text-align: right; white-space: nowrap; }
+
+        .btn-booking { 
+            width: 100%; color: white; padding: 20px; font-size: 1.1rem; border: none; 
+            border-radius: 15px; cursor: pointer; font-weight: bold; transition: all 0.2s;
+        }
+        .ncl .btn-booking { background: var(--ncl-color); box-shadow: 0 4px 12px rgba(0,75,145,0.2); }
+        .princess .btn-booking { background: var(--princess-color); box-shadow: 0 4px 12px rgba(0,46,93,0.2); }
+        .virgin .btn-booking { background: var(--virgin-color); box-shadow: 0 4px 12px rgba(230,0,0,0.2); }
+
+        .btn-booking:hover { filter: brightness(1.2); transform: translateY(-2px); }
+        .btn-booking:disabled { background-color: #ccc !important; box-shadow: none; cursor: wait; transform: none; }
+
+        #msg { margin-top: 30px; color: #004b91; font-weight: 600; font-size: 0.95rem; min-height: 3em; }
     </style>
 </head>
 <body>
 
-    <button onclick="safeApply()" class="btn-booking">
-        VIP 할인 적용 및 예약하기
-    </button>
+<div class="container">
+    <h1>ALASKA CRUISE VIP RESERVATION</h1>
+    <p class="sub-title"><strong>HOUSE OF DREAMS</strong> 파트너 전용 페이지<br>선택하신 일정에 <strong>VIP123</strong> 혜택이 자동 적용됩니다.</p>
+
+    <!-- 일정 1: NCL 블리스 -->
+    <div class="cruise-card ncl">
+        <div class="card-accent"></div>
+        <div class="cruise-badge">NCL BLISS</div>
+        <div class="cruise-info-header">7박 | 알래스카 | NCL(엔씨엘): NCL 블리스<br>2026년 9월 19일</div>
+        
+        <table class="itinerary-table">
+            <tbody>
+                <tr><td class="day-col">1일</td><td>Seattle, Wa (토)</td><td class="time-col">출발 04:00 PM</td></tr>
+                <tr><td class="day-col">2일</td><td>At Sea (일)</td><td class="time-col">-</td></tr>
+                <tr><td class="day-col">3일</td><td>Juneau, Ak (월)</td><td class="time-col">02:30 PM - 10:00 PM</td></tr>
+                <tr><td class="day-col">4일</td><td>Skagway, Ak (화)</td><td class="time-col">06:00 AM - 08:00 PM</td></tr>
+                <tr><td class="day-col">5일</td><td>Cruise Glacier Bay, Ak (수)</td><td class="time-col">빙하 관람</td></tr>
+                <tr><td class="day-col">6일</td><td>Ketchikan (Ward Cove), Ak (목)</td><td class="time-col">07:00 AM - 01:15 PM</td></tr>
+                <tr><td class="day-col">7일</td><td>Victoria Bc, Canada (금)</td><td class="time-col">08:00 PM - 11:59 PM</td></tr>
+                <tr><td class="day-col">8일</td><td>Seattle, Wa (토)</td><td class="time-col">도착 07:00 AM</td></tr>
+            </tbody>
+        </table>
+        <button class="btn-booking" onclick="safeApply(1)">일정 1 예약하기 (NCL 블리스)</button>
+    </div>
+
+    <!-- 일정 2: 디스커버리 프린세스 -->
+    <div class="cruise-card princess">
+        <div class="card-accent"></div>
+        <div class="cruise-badge">DISCOVERY PRINCESS</div>
+        <div class="cruise-info-header">7박 | 알래스카 | 프린세스: 디스커버리 프린세스<br>2026년 9월 19일</div>
+        
+        <table class="itinerary-table">
+            <tbody>
+                <tr><td class="day-col">1일</td><td>Vancouver, Canada (토)</td><td class="time-col">출발 05:30 PM</td></tr>
+                <tr><td class="day-col">2일</td><td>Day At Sea (일)</td><td class="time-col">-</td></tr>
+                <tr><td class="day-col">3일</td><td>Ketchikan, Alaska (월)</td><td class="time-col">06:30 AM - 03:00 PM</td></tr>
+                <tr><td class="day-col">4일</td><td>Endicott Arm & Dawes Glacier (화)</td><td class="time-col">06:00 AM - 10:00 AM</td></tr>
+                <tr><td class="day-col">4일</td><td>Juneau, Alaska (화)</td><td class="time-col">01:30 PM - 09:15 PM</td></tr>
+                <tr><td class="day-col">5일</td><td>Skagway, Alaska (수)</td><td class="time-col">07:00 AM - 07:00 PM</td></tr>
+                <tr><td class="day-col">6일</td><td>Day At Sea (목)</td><td class="time-col">-</td></tr>
+                <tr><td class="day-col">7일</td><td>Day At Sea (금)</td><td class="time-col">-</td></tr>
+                <tr><td class="day-col">8일</td><td>Vancouver, Canada (토)</td><td class="time-col">도착 03:45 AM</td></tr>
+            </tbody>
+        </table>
+        <button class="btn-booking" onclick="safeApply(2)">일정 2 예약하기 (프린세스)</button>
+    </div>
+
+    <!-- 일정 3: 버진 브릴리언트 레이디 -->
+    <div class="cruise-card virgin">
+        <div class="card-accent"></div>
+        <div class="cruise-badge">BRILLIANT LADY</div>
+        <div class="cruise-info-header">7박 | 알래스카 | 버진 보이지스: 브릴리언트 레이디<br>2026년 7월 16일</div>
+        
+        <table class="itinerary-table">
+            <tbody>
+                <tr><td class="day-col">1일</td><td>Seattle, WA (목)</td><td class="time-col">출발 05:00 PM</td></tr>
+                <tr><td class="day-col">2일</td><td>Inside Passage (Cruising) (금)</td><td class="time-col">-</td></tr>
+                <tr><td class="day-col">3일</td><td>Ketchikan, AK (토)</td><td class="time-col">09:00 AM - 05:00 PM</td></tr>
+                <tr><td class="day-col">4일</td><td>Sitka, AK (일)</td><td class="time-col">10:00 AM - 06:00 PM</td></tr>
+                <tr><td class="day-col">5일</td><td>Endicott Arm & Dawes Glacier (월)</td><td class="time-col">빙하 관람</td></tr>
+                <tr><td class="day-col">6일</td><td>Prince Rupert, Canada (화)</td><td class="time-col">10:00 AM - 06:00 PM</td></tr>
+                <tr><td class="day-col">7일</td><td>At Sea (수)</td><td class="time-col">-</td></tr>
+                <tr><td class="day-col">8일</td><td>Seattle, WA (목)</td><td class="time-col">도착 07:00 AM</td></tr>
+            </tbody>
+        </table>
+        <button class="btn-booking" onclick="safeApply(3)">일정 3 예약하기 (버진 보이지스)</button>
+    </div>
     
-    <p id="msg" style="margin-top:20px; color:#666;">버튼을 누르면 예약 페이지로 연결됩니다.</p>
+    <p id="msg"></p>
+</div>
 
-    <script>
-        function safeApply() {
-            const promoUrl = "https://www.polytrips.com/?_rcode_=VIP123";
-            const targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1523739--Alaska---Seattle?siid=1226793&lang=16";
+<script>
+    function safeApply(planNumber) {
+        const promoUrl = "https://www.polytrips.com/?_rcode_=VIP123";
+        let targetUrl = "";
 
-            // 1. 작은 팝업창을 띄워 코드를 심습니다. 
-            // 창 크기를 아주 작게(1x1) 만들어서 사용자 눈에 덜 띄게 합니다.
-            const promoPopup = window.open(promoUrl, 'promo', 'width=100,height=100,left=10000,top=10000');
-
-            document.getElementById('msg').innerText = "VIP 혜택을 적용 중입니다. 잠시만 기다려 주세요...";
-
-            // 2. 현재 창은 1초 뒤 상세 페이지로 이동합니다.
-            setTimeout(function() {
-                if (promoPopup) promoPopup.close(); // 코드가 심어졌을 즈음 팝업 닫기 시도
-                window.location.href = targetUrl;
-            }, 1200);
+        if (planNumber === 1) {
+            targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1523739--Alaska---Seattle?siid=1226793&lang=16";
+        } else if (planNumber === 2) {
+            targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1525622--Inside-Passage--Roundtrip-Vancouver-?siid=1226793&lang=16";
+        } else if (planNumber === 3) {
+            targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1555410--Alaska--Inside-Passage---Glacial-Fjords?siid=1226793&lang=16";
         }
-    </script>
+
+        const buttons = document.querySelectorAll('.btn-booking');
+        const msg = document.getElementById('msg');
+
+        buttons.forEach(btn => btn.disabled = true);
+        msg.innerHTML = "VIP 혜택을 등록 중입니다. 잠시만 기다려 주세요...";
+
+        const promoPopup = window.open(promoUrl, 'promo', 'width=300,height=300,left=100,top=100');
+
+        setTimeout(function() {
+            try { if (promoPopup) promoPopup.close(); } catch (e) {}
+            window.location.href = targetUrl;
+        }, 2000);
+    }
+</script>
+
 </body>
 </html>
