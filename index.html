@@ -126,6 +126,25 @@
             font-size: 0.9rem;
             padding-bottom: 40px;
         }
+        /* 알래스카 버튼 전용 스타일 */
+        .btn-alaska {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            text-decoration: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-alaska:hover {
+            background-color: #2563EB;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -134,6 +153,14 @@
     <header>
         <h1>Global Cruise Fleet Hub</h1>
         <p>전 세계 주요 선사별 선단 데이터베이스 및 리모델링 현황 (2026)</p>
+        <h1>Global Cruise Fleet Intelligence 2026</h1>
+            <p style="color: var(--text-sub); margin-bottom: 30px;">글로벌 크루즈 선단 데이터 및 전문 분석 정보</p>
+            
+            <div style="margin-bottom: 20px;">
+                <a href="alaska" class="btn-alaska">
+                    🚢 알래스카 추천 크루즈 보기
+                </a>
+            </div>
     </header>
 
     <div class="category-title">Contemporary & Premium</div>
