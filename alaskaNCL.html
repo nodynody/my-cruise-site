@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP 혜택 적용 - House of Dreams</title>
+    <style>
+        body { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif; background-color: #f4f7f9; }
+        .btn-booking { background-color: #004b91; color: white; padding: 20px 40px; font-size: 1.2rem; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .btn-booking:disabled { background-color: #ccc; cursor: not-allowed; }
+        #msg { margin-top: 20px; color: #444; font-weight: 500; text-align: center; line-height: 1.5; }
+    </style>
+</head>
+<body>
+
+    <button id="mainBtn" onclick="safeApply()" class="btn-booking">
+        VIP 할인 적용 및 예약하기
+    </button>
+    
+    <p id="msg">버튼을 누르면 프로모션 코드가 자동 적용됩니다.</p>
+
+    <script>
+        function safeApply() {
+            const promoUrl = "https://www.polytrips.com/?_rcode_=VIP123";
+            const targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1523739--Alaska---Seattle?siid=1226793&lang=16";
+            const btn = document.getElementById('mainBtn');
+            const msg = document.getElementById('msg');
+
+            // 중복 클릭 방지
+            btn.disabled = true;
+            msg.innerHTML = "<span style='color:#004b91;'>VIP 혜택을 시스템에 등록 중입니다...</span><br>잠시만 기다려 주세요.";
+
+            // 1. 팝업창 생성 (최소 2초는 유지해야 안전합니다)
+            const promoPopup = window.open(promoUrl, 'promo', 'width=300,height=300,left=100,top=100');
+
+            // 2. 시간을 2초(2000ms)로 조금 더 늘려 쿠키가 생성될 여유를 줍니다.
+            setTimeout(function() {
+                try {
+                    if (promoPopup) {
+                        promoPopup.close(); // 팝업 닫기
+                    }
+                } catch (e) {
+                    console.log("팝업 제어 권한 없음");
+                }
+                
+                // 3. 본 창 이동
+                window.location.href = targetUrl;
+            }, 2000); 
+        }
+    </script>
+</body>
+</html>
