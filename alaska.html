@@ -5,54 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIP 혜택 적용 - House of Dreams</title>
     <style>
-        body {
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            height: 100vh; margin: 0; background-color: #ffffff; font-family: sans-serif;
-        }
-        .btn-booking {
-            background-color: #004b91; color: white; padding: 20px 40px;
-            font-size: 1.2rem; font-weight: bold; border: none; border-radius: 50px;
-            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-        }
-        .btn-booking:active { transform: scale(0.98); }
-        .info-text { margin-top: 25px; color: #666; text-align: center; line-height: 1.6; font-size: 0.95rem; }
+        /* 이전과 동일한 스타일 */
+        body { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif; }
+        .btn-booking { background-color: #004b91; color: white; padding: 20px 40px; font-size: 1.2rem; border: none; border-radius: 50px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <button onclick="relayRedirect()" class="btn-booking">
-        VIP 혜택 적용하고 예약하기
+    <button onclick="safeApply()" class="btn-booking">
+        VIP 할인 적용 및 예약하기
     </button>
     
-    <p id="status" class="info-text">
-        버튼을 누르면 <strong>VIP123</strong> 코드가 적용된<br>
-        예약 페이지로 안전하게 이동합니다.
-    </p>
+    <p id="msg" style="margin-top:20px; color:#666;">버튼을 누르면 예약 페이지로 연결됩니다.</p>
 
     <script>
-        function relayRedirect() {
-            // 버튼 클릭 시 문구 변경
-            document.getElementById('status').innerHTML = "VIP 코드를 등록 중입니다...<br>잠시만 기다려 주세요.";
-            
-            // 1단계: 먼저 메인 도메인(코드 주입용)으로 이동합니다.
-            // 이때 주소 뒤에 리다이렉트 시킬 최종 목적지를 파라미터로 붙여보거나, 
-            // 사이트가 지원하지 않는다면 자바스크립트로 강제 순차 이동을 시킵니다.
-            
+        function safeApply() {
             const promoUrl = "https://www.polytrips.com/?_rcode_=VIP123";
             const targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1523739--Alaska---Seattle?siid=1226793&lang=16";
 
-            // [핵심] 현재 창에서 먼저 코드를 심는 주소로 보냅니다.
-            window.location.href = promoUrl;
+            // 1. 작은 팝업창을 띄워 코드를 심습니다. 
+            // 창 크기를 아주 작게(1x1) 만들어서 사용자 눈에 덜 띄게 합니다.
+            const promoPopup = window.open(promoUrl, 'promo', 'width=100,height=100,left=10000,top=10000');
 
-            // 2단계: 메인 페이지가 로드되면서 쿠키가 심어지는 찰나(약 0.5~0.8초) 뒤에 
-            // 상세 페이지로 다시 튕겨주도록 시도합니다.
-            // (참고: 이 로직은 사용자가 버튼을 눌러 promoUrl로 이동한 직후 브라우저 실행 스택에 남아 작동합니다.)
+            document.getElementById('msg').innerText = "VIP 혜택을 적용 중입니다. 잠시만 기다려 주세요...";
+
+            // 2. 현재 창은 1초 뒤 상세 페이지로 이동합니다.
             setTimeout(function() {
-                window.location.replace(targetUrl);
-            }, 700);
+                if (promoPopup) promoPopup.close(); // 코드가 심어졌을 즈음 팝업 닫기 시도
+                window.location.href = targetUrl;
+            }, 1200);
         }
     </script>
-
 </body>
 </html>
