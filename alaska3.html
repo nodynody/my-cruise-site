@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP 혜택 적용 및 예약 - House of Dreams</title>
+    <style>
+        body {
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            height: 100vh; margin: 0; background-color: #ffffff; font-family: sans-serif;
+        }
+        .btn-booking {
+            background-color: #004b91; color: white; padding: 20px 40px;
+            font-size: 1.2rem; font-weight: bold; border: none; border-radius: 10px;
+            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .btn-booking:hover { background-color: #00366b; }
+        .info-text { margin-top: 20px; color: #666; text-align: center; line-height: 1.6; }
+    </style>
+</head>
+<body>
+
+    <button onclick="applyAndRedirect()" class="btn-booking">
+        VIP 할인 적용하고 예약하기
+    </button>
+    
+    <p class="info-text">
+        버튼을 누르면 <strong>VIP123</strong> 코드가 자동 적용되며<br>
+        알래스카 크루즈 예약 페이지로 연결됩니다.
+    </p>
+
+    <script>
+        function applyAndRedirect() {
+            const promoUrl = "https://www.polytrips.com/?_rcode_=VIP123";
+            const targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1523739--Alaska---Seattle?siid=1226793&lang=16";
+
+            // 1. 새 탭(또는 팝업)으로 프로모션 코드가 포함된 메인 페이지를 엽니다.
+            // 사용자가 직접 열었기 때문에 브라우저가 쿠키를 차단하지 않습니다.
+            const promoWindow = window.open(promoUrl, '_blank');
+
+            // 2. 현재 창은 즉시 상품 상세 페이지로 이동시킵니다.
+            window.location.href = targetUrl;
+
+            // 3. 약 2초 후, 쿠키가 구워졌을 시점에 백그라운드에서 열린 프로모션 탭을 닫으려고 시도합니다.
+            // (보안 정책상 닫히지 않을 수 있지만, 쿠키는 이미 심어진 상태입니다.)
+            setTimeout(function() {
+                if (promoWindow) promoWindow.close();
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>
