@@ -68,19 +68,54 @@
         .btn-booking:disabled { background-color: #ccc !important; box-shadow: none; cursor: wait; transform: none; }
 
         #msg { margin-top: 30px; color: #004b91; font-weight: 600; font-size: 0.95rem; min-height: 3em; }
+
+        /* 제목 옆 이미지 스타일 */
+        .ship-thumb {
+            width: 60px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-right: 12px;
+            border: 1px solid #eee;
+            vertical-align: middle;
+        }
+
+        /* 제목 부분 정렬 수정 */
+        .cruise-info-header { 
+            display: flex; 
+            align-items: center; 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            color: #222; 
+            margin-bottom: 15px; 
+            line-height: 1.3; 
+        }
+
+        /* 셀러브리티 전용 컬러 (네이비 계열) */
+        :root {
+            --celebrity-color: #001e44;
+            /* ... 기존 컬러들 ... */
+        }
+        .celebrity .card-accent { background: var(--celebrity-color); }
+        .celebrity .cruise-badge { background: var(--celebrity-color); }
+        .celebrity .btn-booking { background: var(--celebrity-color); box-shadow: 0 4px 12px rgba(0,30,68,0.2); }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>ALASKA CRUISE VIP RESERVATION</h1>
-    <p class="sub-title"><strong>HOUSE OF DREAMS</strong> 파트너 전용 페이지<br>선택하신 일정에 <strong>VIP123</strong> 혜택이 자동 적용됩니다.</p>
+    <p class="sub-title">선택하신 일정에 <strong>VIP123</strong> 혜택이 자동 적용됩니다.</p>
 
     <!-- 일정 1: NCL 블리스 -->
     <div class="cruise-card ncl">
         <div class="card-accent"></div>
         <div class="cruise-badge">NCL BLISS</div>
-        <div class="cruise-info-header">7박 | 알래스카 | NCL(엔씨엘): NCL 블리스<br>2026년 9월 19일</div>
+        <div class="cruise-info-header">
+            <img src="https://contents.odysol.com//content/images/cruise/6/13670/ship_520.jpg" class="ship-thumb">
+            <div>7박 | 알래스카 | NCL(엔씨엘): NCL 블리스<br>2026년 9월 19일</div>
+        </div>  
+        
         
         <table class="itinerary-table">
             <tbody>
@@ -101,7 +136,11 @@
     <div class="cruise-card princess">
         <div class="card-accent"></div>
         <div class="cruise-badge">DISCOVERY PRINCESS</div>
-        <div class="cruise-info-header">7박 | 알래스카 | 프린세스: 디스커버리 프린세스<br>2026년 9월 19일</div>
+
+        <div class="cruise-info-header">
+            <img src="https://contents.odysol.com//content/images/cruise/7/14718/ship_520.jpg" class="ship-thumb">
+            <div>7박 | 알래스카 | 프린세스: 디스커버리 프린세스<br>2026년 9월 19일</div>
+        </div>        
         
         <table class="itinerary-table">
             <tbody>
@@ -123,7 +162,12 @@
     <div class="cruise-card virgin">
         <div class="card-accent"></div>
         <div class="cruise-badge">BRILLIANT LADY</div>
-        <div class="cruise-info-header">7박 | 알래스카 | 버진 보이지스: 브릴리언트 레이디<br>2027년 6월 3일</div>
+        
+        <div class="cruise-info-header">
+            <img src="https://contents.odysol.com//content/images/cruise/8807/15182/ship_520.jpg" class="ship-thumb">
+            <div>7박 | 알래스카 | 버진 보이지스: 브릴리언트 레이디<br>2027년 6월 3일</div>
+        </div>
+            
         
         <table class="itinerary-table">
             <tbody>
@@ -139,7 +183,29 @@
         </table>
         <button class="btn-booking" onclick="safeApply(3)">일정 3 예약하기 (버진 보이지스)</button>
     </div>
+    <div class="cruise-card celebrity">
+    <div class="card-accent"></div>
+    <div class="cruise-badge">CELEBRITY EDGE</div>
+    <div class="cruise-info-header">
+        <img src="https://contents.odysol.com//content/images/cruise/2/13858/ship_520.jpg" class="ship-thumb">
+        <div>7박 | 알래스카 | 셀러브리티: 셀러브리티 엣지<br>2027년 9월 24일</div>
+    </div>
     
+    <table class="itinerary-table">
+        <tbody>
+            <tr><td class="day-col">1일</td><td>Seattle, WA (금)</td><td class="time-col">출발 04:00 PM</td></tr>
+            <tr><td class="day-col">2일</td><td>At Sea (토)</td><td class="time-col">-</td></tr>
+            <tr><td class="day-col">3일</td><td>Ketchikan, AK (일)</td><td class="time-col">06:00 AM - 04:00 PM</td></tr>
+            <tr><td class="day-col">4일</td><td>Endicott Arm & Dawes Glacier (월)</td><td class="time-col">06:00 AM - 10:30 AM</td></tr>
+            <tr><td class="day-col">4일</td><td>Juneau, AK (월)</td><td class="time-col">01:30 PM - 10:00 PM</td></tr>
+            <tr><td class="day-col">5일</td><td>Skagway / Inside Passage (화)</td><td class="time-col">06:30 AM - 10:30 PM</td></tr>
+            <tr><td class="day-col">6일</td><td>At Sea (수)</td><td class="time-col">-</td></tr>
+            <tr><td class="day-col">7일</td><td>At Sea (목)</td><td class="time-col">-</td></tr>
+            <tr><td class="day-col">8일</td><td>Vancouver, Canada (금)</td><td class="time-col">도착 03:00 AM</td></tr>
+        </tbody>
+    </table>
+    <button class="btn-booking" onclick="safeApply(4)">일정 4 예약하기 (셀러브리티)</button>
+</div>
     <p id="msg"></p>
 </div>
 
@@ -154,6 +220,8 @@
             targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1525622--Inside-Passage--Roundtrip-Vancouver-?siid=1226793&lang=16";
         } else if (planNumber === 3) {
             targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1638887--Alaska--Glacial-Fjords---Coastal-Views?siid=1226793&lang=16";
+        } else if (planNumber === 4) {
+            targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1624510--7-night-alaska-dawes-glacier-cruise?siid=1226793&lang=16"; // 실제 셀러브리티 페이지 주소로 교체하세요
         }
 
         const buttons = document.querySelectorAll('.btn-booking');
