@@ -9,158 +9,160 @@
             --ncl-color: #004b91;
             --princess-color: #002e5d;
             --virgin-color: #e60000;
-            --bg-color: #f0f4f8;
+            --celebrity-color: #001e44;
+            --bg-color: #f4f7fa;
         }
 
         body { 
             display: flex; flex-direction: column; align-items: center; 
             min-height: 100vh; margin: 0; background-color: var(--bg-color); 
             font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif; 
-            padding: 40px 15px;
+            padding: 20px 15px;
         }
 
         .container {
-            background: white; padding: 40px 25px; border-radius: 30px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08); text-align: center; 
-            width: 100%; max-width: 650px;
+            background: white; padding: 40px 20px; border-radius: 30px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; 
+            width: 100%; max-width: 550px;
         }
 
-        h1 { font-size: 1.8rem; color: #333; margin-bottom: 8px; letter-spacing: -0.5px; }
-        .sub-title { color: #666; margin-bottom: 35px; font-size: 1rem; line-height: 1.6; }
+        h1 { font-size: 1.6rem; color: #222; margin-bottom: 10px; letter-spacing: -1px; }
+        .sub-title { color: #666; margin-bottom: 30px; font-size: 0.95rem; line-height: 1.5; }
+        .sub-title strong { color: var(--ncl-color); }
 
         .cruise-card {
-            background: #fff; border: 1px solid #eee; border-radius: 20px;
-            padding: 25px; margin-bottom: 40px; text-align: left;
+            background: #fff; border: 1px solid #eee; border-radius: 24px;
+            padding: 20px; margin-bottom: 30px; text-align: left;
             position: relative; overflow: hidden;
+            transition: transform 0.2s;
         }
 
-        /* 선사별 포인트 상단 바 */
-        .card-accent { position: absolute; top: 0; left: 0; width: 100%; height: 5px; }
+        /* 베스트 라벨 */
+        .best-label {
+            position: absolute; top: 12px; right: -35px;
+            background: #ffcc00; color: #333; padding: 5px 40px;
+            transform: rotate(45deg); font-size: 0.7rem; font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 10;
+        }
+
+        .card-accent { position: absolute; top: 0; left: 0; width: 100%; height: 6px; }
         .ncl .card-accent { background: var(--ncl-color); }
         .princess .card-accent { background: var(--princess-color); }
         .virgin .card-accent { background: var(--virgin-color); }
+        .celebrity .card-accent { background: var(--celebrity-color); }
 
         .cruise-badge {
             display: inline-block; padding: 4px 12px; border-radius: 50px; 
-            font-size: 0.75rem; font-weight: bold; margin-bottom: 12px; color: white;
+            font-size: 0.7rem; font-weight: bold; margin-bottom: 15px; color: white;
         }
         .ncl .cruise-badge { background: var(--ncl-color); }
         .princess .cruise-badge { background: var(--princess-color); }
         .virgin .cruise-badge { background: var(--virgin-color); }
+        .celebrity .cruise-badge { background: var(--celebrity-color); }
 
-        .cruise-info-header { font-size: 1.15rem; font-weight: 700; color: #222; margin-bottom: 15px; line-height: 1.4; }
+        .content-wrapper { display: flex; align-items: flex-start; margin-bottom: 15px; }
+        
+        .ship-thumb {
+            width: 100px; height: 100px; object-fit: cover;
+            border-radius: 12px; border: 1px solid #f0f0f0; margin-right: 15px;
+        }
 
-        .itinerary-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 25px; color: #444; }
-        .itinerary-table th { text-align: left; padding: 10px 5px; border-bottom: 2px solid #f0f0f0; color: #888; font-weight: normal; }
-        .itinerary-table td { padding: 10px 5px; border-bottom: 1px solid #f9f9f9; vertical-align: top; }
-        .day-col { width: 45px; font-weight: bold; color: #333; }
-        .time-col { color: #888; font-size: 0.75rem; text-align: right; white-space: nowrap; }
+        .info-text { flex: 1; }
+        .info-text .headline { font-size: 1.05rem; font-weight: 800; color: #222; margin-bottom: 6px; line-height: 1.4; }
+        .info-text .price-info { color: #e60000; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
+        .info-text .details { font-size: 0.85rem; color: #777; line-height: 1.5; }
+
+        .recommend-point {
+            background: #f8f9fa; padding: 12px; border-radius: 12px;
+            margin-bottom: 15px; font-size: 0.85rem; color: #444; border-left: 3px solid #ddd;
+        }
 
         .btn-booking { 
-            width: 100%; color: white; padding: 20px; font-size: 1.1rem; border: none; 
-            border-radius: 15px; cursor: pointer; font-weight: bold; transition: all 0.2s;
+            width: 100%; color: white; padding: 16px; font-size: 1rem; border: none; 
+            border-radius: 14px; cursor: pointer; font-weight: bold; transition: all 0.2s;
         }
-        .ncl .btn-booking { background: var(--ncl-color); box-shadow: 0 4px 12px rgba(0,75,145,0.2); }
-        .princess .btn-booking { background: var(--princess-color); box-shadow: 0 4px 12px rgba(0,46,93,0.2); }
-        .virgin .btn-booking { background: var(--virgin-color); box-shadow: 0 4px 12px rgba(230,0,0,0.2); }
+        .ncl .btn-booking { background: var(--ncl-color); }
+        .princess .btn-booking { background: var(--princess-color); }
+        .virgin .btn-booking { background: var(--virgin-color); }
+        .celebrity .btn-booking { background: var(--celebrity-color); }
 
-        .btn-booking:hover { filter: brightness(1.2); transform: translateY(-2px); }
-        .btn-booking:disabled { background-color: #ccc !important; box-shadow: none; cursor: wait; transform: none; }
+        .btn-booking:hover { filter: brightness(1.1); transform: translateY(-1px); }
+        .btn-booking:disabled { background-color: #ccc !important; cursor: wait; }
 
-        #msg { margin-top: 30px; color: #004b91; font-weight: 600; font-size: 0.95rem; min-height: 3em; }
-
-        /* 제목 옆 이미지 스타일 */
-        .ship-thumb {
-            width: 120px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 6px;
-            margin-right: 12px;
-            border: 1px solid #eee;
-            vertical-align: middle;
-        }
-
-        /* 제목 부분 정렬 수정 */
-        .cruise-info-header { 
-            display: flex; 
-            align-items: center; 
-            font-size: 1.1rem; 
-            font-weight: 700; 
-            color: #222; 
-            margin-bottom: 15px; 
-            line-height: 1.3; 
-        }
-
-        /* 셀러브리티 전용 컬러 (네이비 계열) */
-        :root {
-            --celebrity-color: #001e44;
-            /* ... 기존 컬러들 ... */
-        }
-        .celebrity .card-accent { background: var(--celebrity-color); }
-        .celebrity .cruise-badge { background: var(--celebrity-color); }
-        .celebrity .btn-booking { background: var(--celebrity-color); box-shadow: 0 4px 12px rgba(0,30,68,0.2); }
+        #msg { margin-top: 20px; color: #555; font-size: 0.9rem; font-weight: 500; height: 1.2em; }
+        
+        footer { margin-top: 30px; font-size: 0.75rem; color: #aaa; text-align: center; line-height: 1.6; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>ALASKA CRUISE VIP RESERVATION</h1>
-    <p class="sub-title">선택하신 일정에 <strong>VIP123</strong> 혜택이 자동 적용됩니다.</p>
+    <!-- <p class="sub-title">선택하신 일정에 <strong>VIP123</strong> 혜택이 자동 적용됩니다.</p> -->
 
-    <!-- 일정 1: NCL 블리스 -->
     <div class="cruise-card ncl">
         <div class="card-accent"></div>
+        <div class="best-label">BEST</div>
         <div class="cruise-badge">NCL BLISS</div>
-        <div class="cruise-info-header">
+        <div class="content-wrapper">
             <img src="https://contents.odysol.com//content/images/cruise/6/13670/ship_520.jpg" class="ship-thumb">
-            <div>7박 8일| 알래스카 | NCL(엔씨엘): NCL 블리스<br>2026년 9월 19일~9월 26일</div>
-        </div>  
-        
-        
-        
-        <button class="btn-booking" onclick="safeApply(1)">상세보기 (NCL 블리스)</button>
+            <div class="info-text">
+                <div class="headline">💎 [추석특가] 850$대로 떠나는 알래스카 No.1 코스</div>
+                <div class="price-info">현재 $850~ (2026.05.15 확인 기준)</div>
+                <div class="details">7박 8일 | 시애틀 왕복<br>2026.09.19 ~ 09.26</div>
+            </div>
+        </div>
+        <div class="recommend-point">📍 글레이셔 베이 국립공원 진입 + 추석 연휴 압도적 가성비</div>
+        <button class="btn-booking" onclick="safeApply(1)">내 방 잔여석 확인하기 (NCL 블리스)</button>
     </div>
 
-    <!-- 일정 2: 디스커버리 프린세스 -->
     <div class="cruise-card princess">
         <div class="card-accent"></div>
         <div class="cruise-badge">DISCOVERY PRINCESS</div>
-
-        <div class="cruise-info-header">
+        <div class="content-wrapper">
             <img src="https://contents.odysol.com//content/images/cruise/7/14718/ship_520.jpg" class="ship-thumb">
-            <div>7박 8일| 알래스카 | 프린세스: 디스커버리 프린세스<br>2026년 9월 19일~9월 26일</div>
-        </div>        
-        
-        
-        <button class="btn-booking" onclick="safeApply(2)">상세보기 (프린세스)</button>
+            <div class="info-text">
+                <div class="headline">👑 정통 알래스카의 정석, 디스커버리 프린세스</div>
+                <div class="details">7박 8일 | 밴쿠버 왕복<br>2026.09.19 ~ 09.26</div>
+            </div>
+        </div>
+        <div class="recommend-point">📍 알래스카 점유율 1위 선사, 부모님 효도 관광 만족도 최상</div>
+        <button class="btn-booking" onclick="safeApply(2)">실시간 가격 확인 (프린세스)</button>
     </div>
 
-    <!-- 일정 3: 버진 브릴리언트 레이디 -->
     <div class="cruise-card virgin">
         <div class="card-accent"></div>
         <div class="cruise-badge">BRILLIANT LADY</div>
-        
-        <div class="cruise-info-header">
+        <div class="content-wrapper">
             <img src="https://contents.odysol.com//content/images/cruise/8807/15182/ship_520.jpg" class="ship-thumb">
-            <div>7박 8일| 알래스카 | 버진 보이지스: 브릴리언트 레이디<br>2027년 6월 3일~6월 10일</div>
+            <div class="info-text">
+                <div class="headline">🔞 애들은 못 타는 힙한 감성, 버진 보이지스</div>
+                <div class="details">7박 8일 | 2027년 알래스카 신규 취항<br>2027.06.03 ~ 06.10</div>
+            </div>
         </div>
-            
-        
-        
-        <button class="btn-booking" onclick="safeApply(3)">상세보기 (버진 보이지스)</button>
+        <div class="recommend-point">📍 올 다이닝 무료(추가금 X), 와이파이 포함 성인 전용 크루즈</div>
+        <button class="btn-booking" onclick="safeApply(3)">버진만의 특별한 혜택 보기</button>
     </div>
+
     <div class="cruise-card celebrity">
-    <div class="card-accent"></div>
-    <div class="cruise-badge">CELEBRITY EDGE</div>
-    <div class="cruise-info-header">
-        <img src="https://contents.odysol.com//content/images/cruise/2/13858/ship_520.jpg" class="ship-thumb">
-        <div>7박 8일| 알래스카 | 셀러브리티: 셀러브리티 엣지<br>2027년 9월 24일~10월 1일</div>
+        <div class="card-accent"></div>
+        <div class="cruise-badge">CELEBRITY EDGE</div>
+        <div class="content-wrapper">
+            <img src="https://contents.odysol.com//content/images/cruise/2/13858/ship_520.jpg" class="ship-thumb">
+            <div class="info-text">
+                <div class="headline">✨ 알래스카를 가장 럭셔리하게, 셀러브리티 엣지</div>
+                <div class="details">7박 8일 | 모던 럭셔리의 끝판왕<br>2027.09.24 ~ 10.01</div>
+            </div>
+        </div>
+        <div class="recommend-point">📍 매직 카펫과 최첨단 디자인, 커플 및 미식가 강력 추천</div>
+        <button class="btn-booking" onclick="safeApply(4)">럭셔리 엣지호 상세 데이터</button>
     </div>
-    
-    
-    <button class="btn-booking" onclick="safeApply(4)">상세보기 (셀러브리티)</button>
-</div>
+
     <p id="msg"></p>
+    <footer>
+        * 실시간 예약 상황에 따라 가격은 변동될 수 있습니다.<br>
+        
+    </footer>
 </div>
 
 <script>
@@ -168,28 +170,23 @@
         const promoUrl = "https://www.polytrips.com/?_rcode_=VIP123";
         let targetUrl = "";
 
-        if (planNumber === 1) {
-            targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1523739--Alaska---Seattle?siid=1226793&lang=16";
-        } else if (planNumber === 2) {
-            targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1525622--Inside-Passage--Roundtrip-Vancouver-?siid=1226793&lang=16";
-        } else if (planNumber === 3) {
-            targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1638887--Alaska--Glacial-Fjords---Coastal-Views?siid=1226793&lang=16";
-        } else if (planNumber === 4) {
-            targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1624510--7-night-alaska-dawes-glacier-cruise?siid=1226793&lang=16"; // 실제 셀러브리티 페이지 주소로 교체하세요
-        }
+        if (planNumber === 1) targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1523739--Alaska---Seattle?siid=1226793&lang=16";
+        else if (planNumber === 2) targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1525622--Inside-Passage--Roundtrip-Vancouver-?siid=1226793&lang=16";
+        else if (planNumber === 3) targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1638887--Alaska--Glacial-Fjords---Coastal-Views?siid=1226793&lang=16";
+        else if (planNumber === 4) targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1624510--7-night-alaska-dawes-glacier-cruise?siid=1226793&lang=16";
 
         const buttons = document.querySelectorAll('.btn-booking');
         const msg = document.getElementById('msg');
 
         buttons.forEach(btn => btn.disabled = true);
-        msg.innerHTML = "VIP 혜택을 등록 중입니다. 잠시만 기다려 주세요...";
+        msg.innerHTML = "✨ VIP 혜택을 코드(VIP123)를 등록 중입니다...";
 
         const promoPopup = window.open(promoUrl, 'promo', 'width=300,height=300,left=100,top=100');
 
         setTimeout(function() {
             try { if (promoPopup) promoPopup.close(); } catch (e) {}
             window.location.href = targetUrl;
-        }, 2000);
+        }, 1800);
     }
 </script>
 
