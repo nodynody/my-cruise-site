@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-W9T3SFL7');</script>
-<!-- End Google Tag Manager -->
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>지중해 크루즈 특가 예약 - House of Dreams</title>
     <style>
@@ -18,6 +16,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             --celebrity-color: #001e44;
             --princess-color: #002e5d;
             --virgin-color: #e60000;
+            --ncl-color: #0073c5; /* NCL 브랜드 컬러 추가 */
             --bg-color: #f4f7fa;
         }
 
@@ -58,6 +57,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .celebrity .card-accent { background: var(--celebrity-color); }
         .princess .card-accent { background: var(--princess-color); }
         .virgin .card-accent { background: var(--virgin-color); }
+        .ncl .card-accent { background: var(--ncl-color); }
 
         .cruise-badge {
             display: inline-block; padding: 4px 12px; border-radius: 50px; 
@@ -68,6 +68,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .celebrity .cruise-badge { background: var(--celebrity-color); }
         .princess .cruise-badge { background: var(--princess-color); }
         .virgin .cruise-badge { background: var(--virgin-color); }
+        .ncl .cruise-badge { background: var(--ncl-color); }
 
         .content-wrapper { display: flex; align-items: flex-start; margin-bottom: 15px; }
         
@@ -95,6 +96,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .celebrity .btn-booking { background: var(--celebrity-color); }
         .princess .btn-booking { background: var(--princess-color); }
         .virgin .btn-booking { background: var(--virgin-color); }
+        .ncl .btn-booking { background: var(--ncl-color); }
 
         .btn-booking:hover { filter: brightness(1.1); transform: translateY(-1px); }
         .btn-booking:disabled { background-color: #ccc !important; cursor: wait; }
@@ -105,11 +107,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </style>
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W9T3SFL7"
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W9T3SFL7"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-
 <div class="container">
     <h1>MEDITERRANEAN VIP RESERVATION</h1>
     
@@ -144,6 +143,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="recommend-point">📍 압도적 스케일! 가족 여행객이 가장 선호하는 최고의 엔터테인먼트</div>
         <button class="btn-booking" onclick="safeApply(2)">로얄 캐리비안 실시간 확인</button>
+    </div>
+
+    <div class="cruise-card ncl">
+        <div class="card-accent"></div>
+        <div class="best-label">럭셔리</div>
+        <div class="cruise-badge">NCL VIVA</div>
+        <div class="content-wrapper">
+            <img src="https://contents.odysol.com//content/images/cruise/6/15159/ship_520.jpg" class="ship-thumb">
+            <div class="info-text">
+                <div class="headline">🗺️ 그리스 아일랜드 & 이탈리아, NCL 비바</div>
+                <div class="price-info">실시간 특가 적용 대상 선박</div>
+                <div class="details">9박 10일 | 지중해<br>2026.05.27 ~ 06.05</div>
+            </div>
+        </div>
+        <div class="recommend-point">📍 NCL 프리마 클래스의 혁신적인 시설과 환상적인 지중해 제도 탐방</div>
+        <button class="btn-booking" onclick="safeApply(6)">NCL 비바 잔여석 확인</button>
     </div>
 
     <div class="cruise-card celebrity">
@@ -209,6 +224,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         else if (planNumber === 3) targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1553832--7-night-italy---french-riviera?siid=1226793&lang=16";
         else if (planNumber === 4) targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1512452--mediterranean-with-italy---turkey?siid=1226793&lang=16&currid=USD";
         else if (planNumber === 5) targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1618782--french-riviera--spain---ibiza-overnight?siid=1226793&lang=16&currid=USD";
+        else if (planNumber === 6) targetUrl = "https://cruises.polytrips.com/swift/cruise/package/1531349--greek-isles---italy?siid=1226793&lang=16"; // NCL 타겟 URL 매핑
 
         const buttons = document.querySelectorAll('.btn-booking');
         const msg = document.getElementById('msg');
