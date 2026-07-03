@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>에드립 꺾기 챌린지 · R&B PITCH RUN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Space+Mono:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-void:#08070C;
+    --bg-panel:#151220;
+    --bg-panel-2:#1E1930;
+    --accent-magenta:#FF2E92;
+    --accent-cyan:#22F1C0;
+    --accent-gold:#FFC24B;
+    --text-primary:#F6F3FF;
+    --text-dim:#8B87A6;
+    --danger:#FF4459;
+    --line:rgba(246,243,255,0.08);
+    --font-display:'Black Han Sans', sans-serif;
+    --font-body:'Noto Sans KR', sans-serif;
+    --font-mono:'Space Mono', monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+  html,body{ height:100%; background:#000; overflow:hidden; }
+  body{
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-body); color:var(--text-primary);
+    background:
+      radial-gradient(circle at 20% 10%, rgba(255,46,146,0.10), transparent 45%),
+      radial-gradient(circle at 80% 90%, rgba(34,241,192,0.08), transparent 45%),
+      var(--bg-void);
+  }
+
+  #app{
+    position:relative;
+    width:min(100vw, 56.25vh);
+    height:min(177.78vw, 100vh);
+    aspect-ratio: 9/16;
+    background:var(--bg-void);
+    overflow:hidden;
+    border-radius:18px;
+    box-shadow:0 0 0 1px var(--line), 0 30px 80px rgba(0,0,0,0.6);
+  }
+
+  /* ---------- grain overlay for IG feel ---------- */
+  #grain{
+    position:absolute; inset:0; pointer-events:none; z-index:50;
+    opacity:0.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* ============ CAMERA ZONE (top 40%) ============ */
+  #camera-zone{
+    position:relative; width:100%; height:40%;
+    background:#000; overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  #camera-feed{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; transform:scaleX(-1); /* mirror like selfie cam */
+    filter:saturate(1.15) contrast(1.05);
+  }
+  #camera-placeholder{
+    position:absolute; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:8px;
+    background:linear-gradient(160deg,#1a1626,#0c0a12);
+    color:var(--text-dim); font-size:12px; text-align:center; padding:0 24px;
+  }
+  #camera-placeholder .cam-icon{ font-size:28px; }
+
+  .stories-bar{
+    position:absolute; top:10px; left:10px; right:10px; z-index:10;
+    display:flex; gap:4px;
+  }
+  .stories-bar .seg{
+    flex:1; height:3px; border-radius:2px; background:rgba(255,255,255,0.25); overflow:hidden;
+  }
+  .stories-bar .seg span{
+    display:block; height:100%; width:0%; background:linear-gradient(90deg,var(--accent-magenta),var(--accent-gold));
+  }
+
+  .rec-badge{
+    position:absolute; top:20px; left:12px; z-index:10;
+    display:flex; align-items:center; gap:6px;
+    font-family:var(--font-mono); font-size:10px; letter-spacing:1px;
+    color:var(--text-primary); background:rgba(0,0,0,0.35);
+    padding:4px 8px; border-radius:20px; backdrop-filter:blur(4px);
+  }
+  .rec-dot{
+    width:7px; height:7px; border-radius:50%; background:var(--danger);
+    box-shadow:0 0 8px var(--danger);
+    animation:pulse 1s infinite;
+  }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+
+  .handle-tag{
+    position:absolute; top:20px; right:12px; z-index:10;
+    font-family:var(--font-mono); font-size:10px; color:var(--accent-cyan);
+    background:rgba(0,0,0,0.35); padding:4px 8px; border-radius:20px; backdrop-filter:blur(4px);
+  }
+
+  .hashtag-ticker{
+    position:absolute; bottom:0; left:0; right:0; z-index:10;
+    height:22px; overflow:hidden; background:linear-gradient(0deg, rgba(0,0,0,0.55), transparent);
+    display:flex; align-items:center;
+  }
+  .hashtag-ticker div{
+    white-space:nowrap; font-family:var(--font-mono); font-size:10px;
+    color:rgba(246,243,255,0.85); padding-left:100%;
+    animation:ticker 9s linear infinite;
+  }
+  @keyframes ticker{ to{ transform:translateX(-220%);} }
+
+  .pitch-readout{
+    position:absolute; bottom:26px; left:12px; z-index:10;
+    font-family:var(--font-mono); font-size:11px; color:var(--accent-gold);
+    background:rgba(0,0,0,0.35); padding:3px 8px; border-radius:10px;
+  }
+
+  /* ============ GAME ZONE (bottom 60%) ============ */
+  #game-zone{
+    position:relative; width:100%; height:60%;
+    background:linear-gradient(180deg,#0c0a14,#050409);
+  }
+  #game-canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+
+  .hud{
+    position:absolute; top:10px; left:10px; right:10px; z-index:20;
+    display:flex; justify-content:space-between; align-items:flex-start;
+    pointer-events:none;
+  }
+  .score-box{
+    font-family:var(--font-mono); background:rgba(21,18,32,0.75);
+    border:1px solid var(--line); border-radius:12px; padding:6px 12px;
+    backdrop-filter:blur(6px);
+  }
+  .score-box .label{ font-size:8px; letter-spacing:2px; color:var(--text-dim); }
+  .score-box .value{ font-size:20px; font-weight:700; color:var(--text-primary); }
+  .combo-box{
+    font-family:var(--font-display); text-align:right;
+    color:var(--accent-gold); text-shadow:0 0 12px rgba(255,194,75,0.7);
+    font-size:22px; opacity:0; transform:translateY(-4px);
+    transition:opacity .15s, transform .15s;
+  }
+  .combo-box.show{ opacity:1; transform:translateY(0); }
+
+  .map-name-tag{
+    position:absolute; bottom:10px; left:10px; z-index:20;
+    font-family:var(--font-mono); font-size:10px; color:var(--text-dim);
+    background:rgba(0,0,0,0.4); padding:4px 10px; border-radius:20px;
+  }
+
+  /* ============ OVERLAY SCREENS ============ */
+  .overlay{
+    position:absolute; inset:0; z-index:100;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:28px 22px; text-align:center; gap:14px;
+    background:linear-gradient(180deg, rgba(8,7,12,0.97), rgba(8,7,12,0.99));
+  }
+  .overlay.hidden{ display:none; }
+
+  .brand{
+    font-family:var(--font-display); font-size:30px; line-height:1.15;
+    background:linear-gradient(90deg,var(--accent-magenta),var(--accent-cyan));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .brand small{
+    display:block; font-family:var(--font-mono); font-size:10px; letter-spacing:3px;
+    color:var(--text-dim); -webkit-text-fill-color:var(--text-dim); margin-top:6px;
+  }
+
+  .desc{ font-size:13px; color:var(--text-dim); line-height:1.6; max-width:260px; }
+
+  .map-list{ width:100%; display:flex; flex-direction:column; gap:10px; margin-top:6px; }
+  .map-card{
+    display:flex; align-items:center; gap:12px; text-align:left;
+    background:var(--bg-panel); border:1px solid var(--line); border-radius:14px;
+    padding:12px 14px; cursor:pointer; transition:transform .12s, border-color .12s;
+  }
+  .map-card:active{ transform:scale(0.97); }
+  .map-card.selected{ border-color:var(--accent-magenta); }
+  .map-card .swatch{
+    width:44px; height:44px; border-radius:10px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; font-size:18px;
+  }
+  .map-card .info{ flex:1; }
+  .map-card .info .title{ font-weight:700; font-size:14px; }
+  .map-card .info .sub{ font-size:11px; color:var(--text-dim); margin-top:2px; }
+  .map-card .tag{
+    font-family:var(--font-mono); font-size:9px; padding:3px 7px; border-radius:20px;
+    background:rgba(255,255,255,0.06); color:var(--text-dim);
+  }
+
+  .btn{
+    font-family:var(--font-body); font-weight:700; font-size:15px;
+    color:#0a0a0a; background:linear-gradient(90deg,var(--accent-magenta),var(--accent-gold));
+    border:none; border-radius:30px; padding:14px 28px; width:100%;
+    cursor:pointer; letter-spacing:0.3px;
+    box-shadow:0 8px 24px rgba(255,46,146,0.35);
+    transition:transform .1s;
+  }
+  .btn:active{ transform:scale(0.97); }
+  .btn.secondary{
+    background:transparent; color:var(--text-primary); box-shadow:none;
+    border:1px solid var(--line);
+  }
+  .btn.small{ width:auto; padding:10px 18px; font-size:12px; }
+
+  .countdown-num{
+    font-family:var(--font-display); font-size:88px;
+    color:var(--accent-cyan); text-shadow:0 0 30px rgba(34,241,192,0.6);
+  }
+
+  .result-score{
+    font-family:var(--font-mono); font-size:46px; font-weight:700; color:var(--accent-gold);
+  }
+  .result-label{ font-size:11px; letter-spacing:3px; color:var(--text-dim); }
+
+  .row{ display:flex; gap:8px; width:100%; }
+  .row .btn{ flex:1; }
+
+  .badge-live{
+    font-family:var(--font-mono); font-size:9px; color:var(--accent-cyan);
+    border:1px solid rgba(34,241,192,0.4); padding:3px 10px; border-radius:20px;
+  }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <div id="grain"></div>
+
+  <!-- ================= CAMERA ZONE ================= -->
+  <div id="camera-zone">
+    <video id="camera-feed" autoplay playsinline muted></video>
+    <div id="camera-placeholder">
+      <div class="cam-icon">🎤</div>
+      <div>카메라/마이크 권한을 허용하면<br>실시간 셀카 영상이 여기에 나와요</div>
+    </div>
+    <div class="stories-bar">
+      <div class="seg"><span id="segFill"></span></div>
+    </div>
+    <div class="rec-badge"><span class="rec-dot"></span>REC</div>
+    <div class="handle-tag" id="mapTagCam">#PITCH_RUN</div>
+    <div class="pitch-readout" id="pitchReadout">🎙 -- Hz</div>
+    <div class="hashtag-ticker"><div>#에드립꺾기챌린지&nbsp;&nbsp;&nbsp;#RNB보컬게임&nbsp;&nbsp;&nbsp;#핏치런&nbsp;&nbsp;&nbsp;#릴스챌린지&nbsp;&nbsp;&nbsp;#노래방게임&nbsp;&nbsp;&nbsp;</div></div>
+  </div>
+
+  <!-- ================= GAME ZONE ================= -->
+  <div id="game-zone">
+    <canvas id="game-canvas"></canvas>
+    <div class="hud">
+      <div class="score-box">
+        <div class="label">SCORE</div>
+        <div class="value" id="scoreValue">0</div>
+      </div>
+      <div class="combo-box" id="comboBox">COMBO x0</div>
+    </div>
+    <div class="map-name-tag" id="mapNameTag">맵을 선택해주세요</div>
+  </div>
+
+  <!-- ================= SCREEN: MAP SELECT ================= -->
+  <div class="overlay" id="screen-mapselect">
+    <div class="brand">에드립 꺾기<br>PITCH RUN<small>R&B 애드립 주파수 게임</small></div>
+    <div class="desc">목소리 높낮이로 공을 조종해서<br>다가오는 애드립 계단을 밟으세요.</div>
+    <div class="map-list">
+      <div class="map-card" data-map="dean">
+        <div class="swatch" style="background:linear-gradient(135deg,#3E2C6B,#7A4FE0);">🌙</div>
+        <div class="info">
+          <div class="title">딘 - instagram 에드립 맵</div>
+          <div class="sub">BPM 78 · 완만한 꺾기</div>
+        </div>
+        <div class="tag">EASY</div>
+      </div>
+      <div class="map-card" data-map="wildflower">
+        <div class="swatch" style="background:linear-gradient(135deg,#5E1035,#FF2E92);">🔥</div>
+        <div class="info">
+          <div class="title">박효신 - 야생화 에드립 맵</div>
+          <div class="sub">BPM 132 · 급격한 고음 꺾기</div>
+        </div>
+        <div class="tag">HARD</div>
+      </div>
+    </div>
+    <button class="btn" id="btnGoPermission" style="margin-top:6px;">이 맵으로 시작하기</button>
+  </div>
+
+  <!-- ================= SCREEN: PERMISSION ================= -->
+  <div class="overlay hidden" id="screen-permission">
+    <div class="brand" style="font-size:22px;">카메라 &amp; 마이크<br>권한이 필요해요</div>
+    <div class="desc">릴스 촬영용 셀카 화면과<br>목소리 음정 인식을 위해<br>카메라/마이크 접근을 허용해주세요.</div>
+    <button class="btn" id="btnRequestAccess">권한 허용하고 계속하기</button>
+    <button class="btn secondary" id="btnBackFromPermission">맵 다시 선택</button>
+    <div class="desc" id="permissionError" style="color:var(--danger); display:none;"></div>
+  </div>
+
+  <!-- ================= SCREEN: CALIBRATION ================= -->
+  <div class="overlay hidden" id="screen-calibrate">
+    <div class="badge-live">CALIBRATING PITCH</div>
+    <div class="brand" style="font-size:20px;">"아~" 하고<br>편한 음으로<br>2초간 소리 내주세요</div>
+    <div class="countdown-num" id="calibNum">3</div>
+    <div class="desc">첫 소리를 기준으로<br>상대적인 높낮이를 계산해요 (절대음감 필요없음)</div>
+  </div>
+
+  <!-- ================= SCREEN: GAME OVER ================= -->
+  <div class="overlay hidden" id="screen-gameover">
+    <div class="result-label">GAME OVER · 계단에서 추락!</div>
+    <div class="result-score" id="finalScore">0</div>
+    <div class="desc" id="finalCombo">최고 콤보 x0</div>
+    <div class="row">
+      <button class="btn" id="btnRetry">다시 도전</button>
+      <button class="btn secondary" id="btnToMapSelect">맵 선택</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ==================== MAP DATA ==================== */
+  // semitone offsets relative to the player's calibrated baseline (0 = 낮은 도)
+  // 예시 템플릿: 낮은 도(0) -> 급격한 고음 솔(+7) -> 파(+5) -> 다시 높은 라(+9) -> 미(+4)
+  const MAPS = {
+    dean: {
+      title: "딘 - instagram 에드립 맵",
+      color: ["#3E2C6B", "#7A4FE0"],
+      noteDuration: 0.95,      // 초당 한 음
+      scrollSpeed: 150,        // px/sec
+      tolerance: 46,           // px 허용 오차 (쉬움)
+      pattern: [0, 3, 0, 5, 2, 4, 0, 6, 3, 0]
+    },
+    wildflower: {
+      title: "박효신 - 야생화 에드립 맵",
+      color: ["#5E1035", "#FF2E92"],
+      noteDuration: 0.55,
+      scrollSpeed: 230,
+      tolerance: 30,           // 어려움 (허용범위 좁음)
+      pattern: [0, 7, 5, 9, 4, 7, 2, 10, 5, 9, 4, 0, 12, 7, 3]
+    }
+  };
+
+  const VIEW_MIN_ST = -4;   // 화면 최하단 반음
+  const VIEW_MAX_ST = 15;   // 화면 최상단 반음
+  const JUDGE_X_RATIO = 0.26; // 판정선 x 위치 (캔버스 너비 비율)
+
+  let currentMapKey = "dean";
+  let currentMap = MAPS.dean;
+
+  /* ==================== DOM ==================== */
+  const $ = (id) => document.getElementById(id);
+  const screens = {
+    mapselect: $("screen-mapselect"),
+    permission: $("screen-permission"),
+    calibrate: $("screen-calibrate"),
+    gameover: $("screen-gameover"),
+  };
+  function showScreen(name){
+    Object.values(screens).forEach(s => s.classList.add("hidden"));
+    if (name && screens[name]) screens[name].classList.remove("hidden");
+  }
+
+  const cameraFeed = $("camera-feed");
+  const cameraPlaceholder = $("camera-placeholder");
+  const canvas = $("game-canvas");
+  const ctx = canvas.getContext("2d");
+  const scoreValueEl = $("scoreValue");
+  const comboBoxEl = $("comboBox");
+  const mapNameTag = $("mapNameTag");
+  const mapTagCam = $("mapTagCam");
+  const pitchReadout = $("pitchReadout");
+  const segFill = $("segFill");
+  const calibNum = $("calibNum");
+
+  /* ==================== MAP SELECTION UI ==================== */
+  document.querySelectorAll(".map-card").forEach(card => {
+    card.addEventListener("click", () => {
+      document.querySelectorAll(".map-card").forEach(c => c.classList.remove("selected"));
+      card.classList.add("selected");
+      currentMapKey = card.dataset.map;
+      currentMap = MAPS[currentMapKey];
+    });
+  });
+  document.querySelector('.map-card[data-map="dean"]').classList.add("selected");
+
+  $("btnGoPermission").addEventListener("click", () => {
+    mapNameTag.textContent = currentMap.title;
+    mapTagCam.textContent = "#" + (currentMapKey === "dean" ? "DEAN_IG" : "WILDFLOWER");
+    showScreen("permission");
+  });
+  $("btnBackFromPermission").addEventListener("click", () => showScreen("mapselect"));
+  $("btnToMapSelect").addEventListener("click", () => { stopGame(); showScreen("mapselect"); });
+  $("btnRetry").addEventListener("click", () => { startCalibration(); });
+
+  /* ==================== CAMERA / MIC PERMISSION ==================== */
+  let mediaStream = null;
+  let audioCtx = null;
+  let analyser = null;
+  let timeDomainBuf = null;
+
+  $("btnRequestAccess").addEventListener("click", async () => {
+    const errBox = $("permissionError");
+    errBox.style.display = "none";
+    try {
+      // 카메라(셀카) + 마이크 권한을 한 번에 요청
+      mediaStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "user", width: { ideal: 720 }, height: { ideal: 1280 } },
+        audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true }
+      });
+
+      cameraFeed.srcObject = mediaStream;
+      cameraPlaceholder.style.display = "none";
+
+      // Web Audio API 파이프라인 구성
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const source = audioCtx.createMediaStreamSource(mediaStream);
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 2048;
+      timeDomainBuf = new Float32Array(analyser.fftSize);
+      source.connect(analyser); // 스피커로는 연결하지 않음 (하울링 방지)
+
+      startCalibration();
+    } catch (err) {
+      console.error(err);
+      errBox.textContent = "권한이 거부되었거나 기기가 지원되지 않아요. 브라우저 설정에서 카메라/마이크 접근을 허용한 뒤 다시 시도해주세요.";
+      errBox.style.display = "block";
+    }
+  });
+
+  /* ==================== PITCH DETECTION (autocorrelation, ACF2+) ==================== */
+  function autoCorrelate(buf, sampleRate){
+    const SIZE = buf.length;
+    let rms = 0;
+    for (let i = 0; i < SIZE; i++){ rms += buf[i] * buf[i]; }
+    rms = Math.sqrt(rms / SIZE);
+    if (rms < 0.010) return -1; // 너무 조용함 (소리 없음)
+
+    let r1 = 0, r2 = SIZE - 1;
+    const thres = 0.2;
+    for (let i = 0; i < SIZE / 2; i++){ if (Math.abs(buf[i]) < thres) { r1 = i; break; } }
+    for (let i = 1; i < SIZE / 2; i++){ if (Math.abs(buf[SIZE - i]) < thres) { r2 = SIZE - i; break; } }
+
+    const trimmed = buf.slice(r1, r2);
+    const N = trimmed.length;
+    const c = new Array(N).fill(0);
+    for (let i = 0; i < N; i++){
+      for (let j = 0; j < N - i; j++){ c[i] += trimmed[j] * trimmed[j + i]; }
+    }
+    let d = 0;
+    while (d < N - 1 && c[d] > c[d + 1]) d++;
+    let maxVal = -1, maxPos = -1;
+    for (let i = d; i < N; i++){
+      if (c[i] > maxVal){ maxVal = c[i]; maxPos = i; }
+    }
+    let T0 = maxPos;
+    if (T0 <= 0) return -1;
+    const x1 = c[T0 - 1] || 0, x2 = c[T0], x3 = c[T0 + 1] || 0;
+    const a = (x1 + x3 - 2 * x2) / 2;
+    const b = (x3 - x1) / 2;
+    if (a) T0 = T0 - b / (2 * a);
+    const freq = sampleRate / T0;
+    if (freq < 60 || freq > 1200) return -1; // 사람 목소리 범위 밖
+    return freq;
+  }
+
+  let rawFreq = -1;
+  let smoothedFreq = -1;
+  function detectPitchTick(){
+    if (!analyser) return;
+    analyser.getFloatTimeDomainData(timeDomainBuf);
+    const f = autoCorrelate(timeDomainBuf, audioCtx.sampleRate);
+    rawFreq = f;
+    if (f > 0){
+      smoothedFreq = smoothedFreq < 0 ? f : smoothedFreq * 0.72 + f * 0.28;
+    }
+  }
+
+  /* ==================== CALIBRATION ==================== */
+  let baselineFreq = 220; // 기본값 (A3), 캘리브레이션으로 덮어씀
+  let calibSamples = [];
+  let calibTimer = null;
+
+  function startCalibration(){
+    showScreen("calibrate");
+    calibSamples = [];
+    let count = 3;
+    calibNum.textContent = count;
+    if (calibTimer) clearInterval(calibTimer);
+    calibTimer = setInterval(() => {
+      count--;
+      if (count > 0){
+        calibNum.textContent = count;
+      } else {
+        calibNum.textContent = "🎙";
+      }
+      if (count <= 0){
+        clearInterval(calibTimer);
+        // 마지막 1.2초 동안 샘플 수집
+        collectCalibrationSamples();
+      }
+    }, 1000);
+  }
+
+  function collectCalibrationSamples(){
+    const collectStart = performance.now();
+    function loop(){
+      detectPitchTick();
+      if (rawFreq > 0) calibSamples.push(rawFreq);
+      if (performance.now() - collectStart < 1200){
+        requestAnimationFrame(loop);
+      } else {
+        finishCalibration();
+      }
+    }
+    loop();
+  }
+
+  function finishCalibration(){
+    if (calibSamples.length > 3){
+      const sorted = [...calibSamples].sort((a,b) => a-b);
+      baselineFreq = sorted[Math.floor(sorted.length / 2)]; // median
+    }
+    smoothedFreq = baselineFreq;
+    startGame();
+  }
+
+  /* ==================== GAME STATE ==================== */
+  let running = false;
+  let songTime = 0;
+  let score = 0;
+  let combo = 0;
+  let bestCombo = 0;
+  let ballY = 0;
+  let ballVY = 0;
+  let falling = false;
+  let missTime = 0;
+  let lastTs = 0;
+  let particles = [];
+  let loopMultiplier = 1;
+  let animId = null;
+
+  function resizeCanvas(){
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * devicePixelRatio;
+    canvas.height = rect.height * devicePixelRatio;
+    ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  }
+  window.addEventListener("resize", resizeCanvas);
+
+  function stMap(st, h){
+    const clampedSt = Math.max(VIEW_MIN_ST - 6, Math.min(VIEW_MAX_ST + 6, st));
+    const ratio = (clampedSt - VIEW_MIN_ST) / (VIEW_MAX_ST - VIEW_MIN_ST);
+    return h - ratio * h;
+  }
+
+  // 시간(t, 초)에 대응하는 계단 곡선의 반음(semitone) 값을 부드러운 보간으로 계산
+  function patternSemitoneAt(t){
+    const pat = currentMap.pattern;
+    const dur = currentMap.noteDuration;
+    const totalLen = pat.length * dur;
+    let tt = t % totalLen;
+    if (tt < 0) tt += totalLen;
+    const idx = Math.floor(tt / dur);
+    const localT = (tt - idx * dur) / dur; // 0~1
+    const a = pat[idx];
+    const b = pat[(idx + 1) % pat.length];
+    // smoothstep 보간 -> 급격하지만 매끄러운 R&B 꺾기 느낌
+    const s = localT * localT * (3 - 2 * localT);
+    return a + (b - a) * s;
+  }
+
+  function startGame(){
+    resizeCanvas();
+    running = true;
+    songTime = 0;
+    score = 0;
+    combo = 0;
+    bestCombo = 0;
+    falling = false;
+    missTime = 0;
+    loopMultiplier = 1;
+    particles = [];
+    scoreValueEl.textContent = "0";
+    comboBoxEl.classList.remove("show");
+    segFill.style.transition = "none";
+    segFill.style.width = "0%";
+    void segFill.offsetWidth;
+    segFill.style.transition = "width 60s linear";
+    requestAnimationFrame(() => { segFill.style.width = "100%"; });
+
+    showScreen(null);
+    lastTs = performance.now();
+    ballY = canvas.getBoundingClientRect().height / 2;
+    if (animId) cancelAnimationFrame(animId);
+    animId = requestAnimationFrame(gameLoop);
+  }
+
+  function stopGame(){
+    running = false;
+    if (animId) cancelAnimationFrame(animId);
+  }
+
+  function endGame(){
+    running = false;
+    if (animId) cancelAnimationFrame(animId);
+    $("finalScore").textContent = Math.floor(score);
+    $("finalCombo").textContent = "최고 콤보 x" + bestCombo;
+    showScreen("gameover");
+  }
+
+  function gameLoop(ts){
+    if (!running) return;
+    const dt = Math.min(0.05, (ts - lastTs) / 1000);
+    lastTs = ts;
+
+    detectPitchTick();
+    updatePitchReadout();
+
+    const rect = canvas.getBoundingClientRect();
+    const W = rect.width, H = rect.height;
+    songTime += dt * loopMultiplier;
+
+    const judgeX = W * JUDGE_X_RATIO;
+    const targetSt = patternSemitoneAt(songTime);
+    const targetY = stMap(targetSt, H);
+
+    if (!falling){
+      // 목소리 -> 반음 오프셋 -> 목표 y 위치로 공을 부드럽게 이동
+      let desiredY;
+      if (smoothedFreq > 0){
+        const semitoneOffset = 12 * Math.log2(smoothedFreq / baselineFreq);
+        desiredY = stMap(semitoneOffset, H);
+      } else {
+        desiredY = ballY; // 소리 없으면 현재 위치 유지 (서서히 미스로 이어짐)
+      }
+      ballY += (desiredY - ballY) * Math.min(1, dt * 10);
+
+      const diff = Math.abs(ballY - targetY);
+      if (diff < currentMap.tolerance){
+        score += dt * 60 * (1 + combo * 0.02);
+        missTime = 0;
+        if (Math.random() < 0.5) spawnParticle(judgeX, ballY, true);
+        combo += dt * 4;
+      } else {
+        missTime += dt;
+        combo = Math.max(0, combo - dt * 2);
+        if (missTime > 0.9){
+          falling = true;
+          ballVY = 60;
+        }
+      }
+      bestCombo = Math.max(bestCombo, Math.floor(combo));
+    } else {
+      ballVY += 900 * dt;
+      ballY += ballVY * dt;
+      if (ballY > H + 40){
+        endGame();
+        return;
+      }
+    }
+
+    // 매 루프마다 약간씩 빨라져서 지속 난이도 상승
+    loopMultiplier = 1 + Math.min(0.6, songTime / 90);
+
+    scoreValueEl.textContent = Math.floor(score);
+    const comboInt = Math.floor(combo);
+    if (comboInt >= 3){
+      comboBoxEl.textContent = "COMBO x" + comboInt;
+      comboBoxEl.classList.add("show");
+    } else {
+      comboBoxEl.classList.remove("show");
+    }
+
+    drawScene(W, H, judgeX, targetY);
+    updateParticles(dt);
+
+    animId = requestAnimationFrame(gameLoop);
+  }
+
+  function spawnParticle(x, y, hit){
+    for (let i = 0; i < 5; i++){
+      particles.push({
+        x, y,
+        vx: (Math.random() - 0.5) * 120,
+        vy: (Math.random() - 0.5) * 120,
+        life: 0.5,
+        hit
+      });
+    }
+  }
+  function updateParticles(dt){
+    particles.forEach(p => { p.x += p.vx*dt; p.y += p.vy*dt; p.life -= dt; });
+    particles = particles.filter(p => p.life > 0);
+  }
+
+  function updatePitchReadout(){
+    if (smoothedFreq > 0){
+      const semi = 12 * Math.log2(smoothedFreq / baselineFreq);
+      pitchReadout.textContent = "🎙 " + Math.round(smoothedFreq) + "Hz (" + (semi >= 0 ? "+" : "") + semi.toFixed(1) + "st)";
+    } else {
+      pitchReadout.textContent = "🎙 소리를 내보세요";
+    }
+  }
+
+  /* ==================== RENDER ==================== */
+  function drawScene(W, H, judgeX, targetY){
+    ctx.clearRect(0, 0, W, H);
+
+    // 배경 그리드 (음정 라인 느낌)
+    ctx.strokeStyle = "rgba(255,255,255,0.04)";
+    ctx.lineWidth = 1;
+    for (let i = 0; i <= 6; i++){
+      const y = (H / 6) * i;
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    }
+
+    // 판정선
+    const judgeGrad = ctx.createLinearGradient(0, 0, 0, H);
+    judgeGrad.addColorStop(0, "rgba(255,194,75,0.05)");
+    judgeGrad.addColorStop(0.5, "rgba(255,194,75,0.35)");
+    judgeGrad.addColorStop(1, "rgba(255,194,75,0.05)");
+    ctx.strokeStyle = judgeGrad;
+    ctx.lineWidth = 2;
+    ctx.setLineDash([6, 6]);
+    ctx.beginPath(); ctx.moveTo(judgeX, 0); ctx.lineTo(judgeX, H); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // 에드립 계단 곡선 (오른쪽에서 왼쪽으로 스크롤)
+    const step = 4;
+    ctx.beginPath();
+    for (let x = 0; x <= W; x += step){
+      const t = songTime + (x - judgeX) / currentMap.scrollSpeed;
+      const st = patternSemitoneAt(t);
+      const y = stMap(st, H);
+      if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    const pathGrad = ctx.createLinearGradient(0, 0, W, 0);
+    pathGrad.addColorStop(0, currentMap.color[1]);
+    pathGrad.addColorStop(1, currentMap.color[0]);
+    ctx.strokeStyle = pathGrad;
+    ctx.lineWidth = 5;
+    ctx.lineJoin = "round";
+    ctx.shadowColor = currentMap.color[1];
+    ctx.shadowBlur = 14;
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    // 계단 노트 점 찍기 (박자 감)
+    ctx.fillStyle = "rgba(255,255,255,0.75)";
+    const dur = currentMap.noteDuration;
+    const firstNoteIdx = Math.floor((songTime - (W - judgeX) / currentMap.scrollSpeed) / dur);
+    for (let n = firstNoteIdx; n < firstNoteIdx + Math.ceil(W / (currentMap.scrollSpeed * dur)) + 2; n++){
+      const noteTime = n * dur;
+      const x = judgeX + (noteTime - songTime) * currentMap.scrollSpeed;
+      if (x < -20 || x > W + 20) continue;
+      const st = currentMap.pattern[((n % currentMap.pattern.length) + currentMap.pattern.length) % currentMap.pattern.length];
+      const y = stMap(st, H);
+      ctx.beginPath(); ctx.arc(x, y, 3.5, 0, Math.PI * 2); ctx.fill();
+    }
+
+    // 목표 지점 하이라이트
+    ctx.beginPath();
+    ctx.arc(judgeX, targetY, 9, 0, Math.PI * 2);
+    ctx.strokeStyle = "rgba(255,194,75,0.7)";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // 파티클
+    particles.forEach(p => {
+      ctx.globalAlpha = Math.max(0, p.life / 0.5);
+      ctx.fillStyle = p.hit ? currentMap.color[1] : "#FF4459";
+      ctx.beginPath(); ctx.arc(p.x, p.y, 2.4, 0, Math.PI * 2); ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+
+    // 플레이어 공 (보컬 트레일)
+    const ballGrad = ctx.createRadialGradient(judgeX, ballY, 0, judgeX, ballY, 16);
+    ballGrad.addColorStop(0, "#ffffff");
+    ballGrad.addColorStop(0.4, currentMap.color[1]);
+    ballGrad.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = ballGrad;
+    ctx.beginPath(); ctx.arc(judgeX, ballY, 16, 0, Math.PI * 2); ctx.fill();
+
+    ctx.fillStyle = falling ? "#FF4459" : "#ffffff";
+    ctx.beginPath(); ctx.arc(judgeX, ballY, 6, 0, Math.PI * 2); ctx.fill();
+
+    if (falling){
+      ctx.fillStyle = "rgba(255,68,89,0.12)";
+      ctx.fillRect(0, 0, W, H);
+    }
+  }
+
+  /* init */
+  resizeCanvas();
+})();
+</script>
+</body>
+</html>
