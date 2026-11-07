@@ -11,168 +11,245 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Cruise Fleet Intelligence 2026</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap');
-        
+        /* Redesign pass with unslop by @heydamir (CC BY 4.0) */
         :root {
-            --bg: #F1F5F9;
-            --primary: #0F172A;
-            --accent: #3B82F6;
-            --card: #FFFFFF;
-            --text-main: #1E293B;
-            --text-sub: #64748B;
+            --bg: #F5F6F7;
+            --surface: #FFFFFF;
+            --surface-2: #EEF0F2;
+            --ink: #15202B;
+            --ink-2: #4A5562;
+            --ink-3: #6B7682;
+            --line: rgba(21, 32, 43, 0.10);
+            --line-strong: rgba(21, 32, 43, 0.18);
+            --accent: #1D4E89;
+            --accent-ink: #163D6B;
+            --bar: #C3CAD2;
+            --ease: cubic-bezier(0.2, 0, 0, 1);
+            --sans: 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            --mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
         }
+
+        * { box-sizing: border-box; }
 
         body {
-            font-family: 'Pretendard', sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
             margin: 0;
-            padding: 40px 20px;
+            padding: 0 0 48px;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 15px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        a { color: inherit; }
+        :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
 
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-        header h1 {
-            font-size: 2.8rem;
-            color: var(--primary);
-            margin-bottom: 10px;
-            font-weight: 800;
+        /* top strip: business info */
+        .company-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 4px 8px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--ink-3);
+            overflow-wrap: anywhere;
         }
+        .company-bar strong { color: var(--ink); font-weight: 600; }
+        .company-bar .sep { flex-basis: 0; }
+        .company-bar a { color: var(--ink-2); text-decoration: none; }
+        .company-bar a:hover { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 3px; }
 
-        header p {
-            color: var(--text-sub);
-            font-size: 1.1rem;
+        /* hero: text left, ranking right */
+        .hero {
+            margin-top: 8px;
+            display: grid;
+            grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+            gap: 48px;
+            align-items: center;
+            padding: 64px 0;
+            border-bottom: 1px solid var(--line);
         }
+        .hero h1 {
+            margin: 0 0 16px;
+            font-size: 48px;
+            line-height: 1.1;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+            color: var(--ink);
+        }
+        .hero-sub {
+            margin: 0 0 32px;
+            max-width: 30em;
+            font-size: 17px;
+            line-height: 1.65;
+            color: var(--ink-2);
+        }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            height: 44px;
+            padding: 0 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 150ms var(--ease), border-color 150ms var(--ease), transform 100ms var(--ease);
+        }
+        .btn:active { transform: scale(0.98); }
+        .btn-primary { background: var(--accent); color: #FFFFFF; }
+        .btn-primary:hover { background: var(--accent-ink); }
+        .btn-secondary { background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); }
+        .btn-secondary:hover { background: var(--surface-2); }
 
+        /* the moment: ranking of space per guest */
+        .ranking {
+            margin: 0;
+            padding: 24px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+        }
+        .ranking figcaption {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .rk-legend { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 400; color: var(--ink-3); white-space: nowrap; }
+        .dot { display: inline-block; width: 8px; height: 8px; border-radius: 2px; background: var(--bar); }
+        .dot-lux { background: var(--accent); margin-left: 6px; }
+        .ranking ol { list-style: none; margin: 0; padding: 0; }
+        .ranking li a {
+            display: grid;
+            grid-template-columns: 148px 1fr 40px;
+            align-items: center;
+            gap: 12px;
+            height: 28px;
+            padding: 0 8px;
+            margin: 0 -8px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 120ms var(--ease);
+        }
+        .ranking li a:hover { background: var(--surface-2); }
+        .rk-name { font-size: 13px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .rk-bar { height: 8px; border-radius: 2px; background: linear-gradient(var(--bar), var(--bar)) 0 0 / calc(var(--v) / 100 * 100%) 100% no-repeat; }
+        .is-lux .rk-bar { background-image: linear-gradient(var(--accent), var(--accent)); }
+        .is-lux .rk-name { color: var(--ink); }
+        .rk-val { font-family: var(--mono); font-size: 12px; font-variant-numeric: tabular-nums; text-align: right; color: var(--ink); }
+        .rk-note { margin: 12px 0 0; font-size: 12px; color: var(--ink-3); }
+
+        /* line directory */
         .category-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 40px 0 20px;
-            padding-left: 10px;
-            border-left: 5px solid var(--accent);
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin: 56px 0 16px;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
         }
+        .category-title span { font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--ink-3); letter-spacing: 0; }
 
         .fleet-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
         }
-
         .fleet-card {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 24px;
-            text-decoration: none;
-            color: inherit;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            border: 1px solid #E2E8F0;
+            padding: 20px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            text-decoration: none;
+            color: inherit;
+            transition: border-color 150ms var(--ease);
         }
-
-        .fleet-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        .fleet-card:hover { border-color: var(--line-strong); }
+        .fleet-card:hover .btn-view { color: var(--accent-ink); }
+        .fleet-img {
+            order: -3;
+            display: block;
+            width: calc(100% + 40px);
+            max-width: none;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            margin: -20px -20px 16px;
+            object-fit: cover;
+            border-radius: 11px 11px 0 0;
+            background: var(--surface-2);
         }
-
-        .fleet-name {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-
-        .fleet-tag {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            width: fit-content;
-        }
-
-        .tag-contemporary { background: #DBEAFE; color: #1E40AF; }
-        .tag-premium { background: #FEF3C7; color: #92400E; }
-        .tag-luxury { background: #F3E8FF; color: #6B21A8; }
-
-        .fleet-desc {
-            font-size: 0.9rem;
-            color: var(--text-sub);
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
-        .btn-view {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--accent);
+        .fleet-card { overflow: hidden; }
+        .photo-credit { margin-top: 12px !important; font-size: 12px; overflow-wrap: anywhere; }
+        .fleet-tag { order: -1; margin-bottom: 4px; font-size: 12px; color: var(--ink-3); }
+        .fleet-name { order: -2; margin-bottom: 4px; font-size: 18px; font-weight: 600; line-height: 1.35; color: var(--ink); }
+        .fleet-desc { flex-grow: 1; margin: 12px 0 16px; font-size: 14px; line-height: 1.6; color: var(--ink-2); }
+        .fleet-meta {
             display: flex;
-            align-items: center;
+            gap: 16px;
+            padding: 12px 0;
+            border-top: 1px solid var(--line);
+            font-size: 12px;
+            color: var(--ink-3);
         }
-
+        .fleet-meta b { font-family: var(--mono); font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--ink); margin-right: 4px; }
+        .btn-view {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--accent);
+            transition: color 150ms var(--ease);
+        }
         .btn-view::after {
-            content: ' →';
+            content: '';
+            width: 14px;
+            height: 14px;
+            background: currentColor;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+                    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
         }
 
         footer {
-            margin-top: 80px;
-            text-align: center;
-            color: var(--text-sub);
-            font-size: 0.9rem;
-            padding-bottom: 40px;
+            margin-top: 64px;
+            padding-top: 24px;
+            border-top: 1px solid var(--line);
+            font-size: 13px;
+            color: var(--ink-3);
         }
-        .company-bar {
-            text-align: center;
-            background: var(--card);
-            border-radius: 14px;
-            padding: 14px 20px;
-            margin-bottom: 30px;
-            font-size: 0.95rem;
-            line-height: 1.7;
-            color: var(--text-sub);
-            overflow-wrap: anywhere;
-        }
+        footer p { margin: 0 0 4px; }
+        footer a { color: var(--ink-2); text-decoration: none; }
+        footer a:hover { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 3px; }
 
-        .company-bar strong { color: var(--primary); }
-        .company-bar a { color: var(--accent); text-decoration: none; }
-        .company-bar a:hover { text-decoration: underline; }
-
-        /* 알래스카 버튼 전용 스타일 */
-        .btn-alaska {
-            display: inline-block;
-            background-color: var(--accent);
-            color: white;
-            text-decoration: none;
-            padding: 15px 35px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-            transition: all 0.3s ease;
+        @media (max-width: 960px) {
+            .hero { grid-template-columns: 1fr; gap: 32px; padding: 48px 0; }
         }
-
-        .btn-alaska:hover {
-            background-color: #2563EB;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        @media (max-width: 640px) {
+            .container { padding: 0 16px; }
+            .hero h1 { font-size: 32px; }
+            .hero-sub { font-size: 16px; }
+            .ranking { padding: 16px; }
+            .ranking li a { grid-template-columns: 112px 1fr 36px; gap: 8px; }
+            .fleet-grid { grid-template-columns: 1fr; }
         }
-        /* 지중해 버튼 전용 호버 스타일 (필요 시 추가) */
-        a[href="Mediterranean.html"]:hover {
-            background-color: #059669 !important; /* 더 짙은 초록색 */
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4) !important;
-        }
+        @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
     </style>
 </head>
 <body>
@@ -182,84 +259,112 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <div class="container">
-    <div class="company-bar">
-        <strong>House of Dreams</strong> · 진우컴퍼니 (Jinwoo Company), 대한민국<br>
-        크루즈 정보 서비스와 자체 IP 콘텐츠를 만드는 개인사업자 ·
-        <a href="about.html">회사 소개</a> ·
-        <a href="mailto:hyun@houseofdreams.co.kr">hyun@houseofdreams.co.kr</a>
-    </div>
-    <header>
-        <h1>Global Cruise Fleet Hub</h1>
-        <p>전 세계 주요 선사별 선단 데이터베이스 및 리모델링 현황 (2026)</p>
-        
-            
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 20px;">
-                <a href="alaska" class="btn-alaska">
-                    🚢 늦으면 품절! 추석 알래스카 $859~
-                </a>
-                <a href="Mediterranean" class="btn-alaska" style="background-color: #10B981; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);">
-                    ☀️ 지중해 신상 초인기 특가 확인 $789~
-                </a>
+    <header class="hero">
+        <div class="hero-text">
+            <h1>Global Cruise Fleet Hub</h1>
+            <p class="hero-sub">전 세계 주요 선사 14곳, 배 195척(신조선 포함)의 톤수·1인당 톤수·승무원당 승객·리모델링 연도를 선사별로 정리한 선단 데이터베이스 (2026)</p>
+            <div class="hero-actions">
+                <a href="#lines" class="btn btn-primary">선사별 제원 보기</a>
             </div>
+        </div>
+        <figure class="ranking" aria-labelledby="rk-title">
+            <figcaption id="rk-title">
+                <span>선사별 평균 1인당 톤수</span>
+                <span class="rk-legend"><i class="dot"></i>프리미엄 <i class="dot dot-lux"></i>럭셔리</span>
+            </figcaption>
+            <ol>
+                <li class="is-lux"><a href="Crystal_Fleet_2026.html"><span class="rk-name">Crystal Cruises</span><span class="rk-bar" style="--v: 90.8"></span><span class="rk-val">90.8</span></a></li>
+                <li class="is-lux"><a href="Regent_Fleet_2026.html"><span class="rk-name">Regent Seven Seas</span><span class="rk-bar" style="--v: 71.8"></span><span class="rk-val">71.8</span></a></li>
+                <li class="is-lux"><a href="Silversea_Fleet_2026.html"><span class="rk-name">Silversea Cruises</span><span class="rk-bar" style="--v: 71.5"></span><span class="rk-val">71.5</span></a></li>
+                <li><a href="Oceania_Fleet_2026.html"><span class="rk-name">Oceania Cruises</span><span class="rk-bar" style="--v: 51.5"></span><span class="rk-val">51.5</span></a></li>
+                <li><a href="Azamara_Fleet_2026.html"><span class="rk-name">Azamara</span><span class="rk-bar" style="--v: 44.0"></span><span class="rk-val">44.0</span></a></li>
+                <li><a href="Celebrity_Fleet_2026.html"><span class="rk-name">Celebrity Cruises</span><span class="rk-bar" style="--v: 44.0"></span><span class="rk-val">44.0</span></a></li>
+                <li><a href="Royal_Caribbean_2026.html"><span class="rk-name">Royal Caribbean</span><span class="rk-bar" style="--v: 41.3"></span><span class="rk-val">41.3</span></a></li>
+                <li><a href="Holland_America_Fleet_2026.html"><span class="rk-name">Holland America Line</span><span class="rk-bar" style="--v: 41.0"></span><span class="rk-val">41.0</span></a></li>
+                <li><a href="NCL_Fleet_2026.html"><span class="rk-name">Norwegian Cruise Line</span><span class="rk-bar" style="--v: 40.4"></span><span class="rk-val">40.4</span></a></li>
+                <li><a href="Princess_Fleet_2026.html"><span class="rk-name">Princess Cruises</span><span class="rk-bar" style="--v: 40.2"></span><span class="rk-val">40.2</span></a></li>
+                <li><a href="Virgin_Voyages_2026.html"><span class="rk-name">Virgin Voyages</span><span class="rk-bar" style="--v: 39.8"></span><span class="rk-val">39.8</span></a></li>
+                <li><a href="Carnival_Fleet_2026.html"><span class="rk-name">Carnival Cruise Line</span><span class="rk-bar" style="--v: 36.3"></span><span class="rk-val">36.3</span></a></li>
+                <li><a href="MSC_Fleet_2026.html"><span class="rk-name">MSC Cruises</span><span class="rk-bar" style="--v: 30.2"></span><span class="rk-val">30.2</span></a></li>
+                <li><a href="Costa_Fleet_2026.html"><span class="rk-name">Costa Cruises</span><span class="rk-bar" style="--v: 29.5"></span><span class="rk-val">29.5</span></a></li>
+            </ol>
+            <p class="rk-note">GT/승객 · 숫자가 클수록 승객 한 명이 쓰는 배 안 공간이 넓어요</p>
+        </figure>
     </header>
 
-    <div class="category-title">Contemporary & Premium</div>
+    <h2 class="category-title" id="lines">Contemporary &amp; Premium <span>11개 선사</span></h2>
     <div class="fleet-grid">
         <a href="Royal_Caribbean_2026.html" class="fleet-card">
-            <span class="fleet-tag tag-contemporary">혁신/대형</span>
+            <img class="fleet-img" src="assets/img/lines/royal-800.webp" width="800" height="450" alt="Icon of the Seas" loading="lazy">
+            <span class="fleet-tag">혁신/대형</span>
             <span class="fleet-name">Royal Caribbean</span>
             <p class="fleet-desc">아이콘 및 오아시스 클래스를 보유한 세계 최대 규모의 선사. 리모델링(Amplified) 정보 포함.</p>
+            <span class="fleet-meta"><span><b>41.3</b> 평균 1인당 톤수</span><span><b>31</b>척</span></span>
             <span class="btn-view">상세 데이터 보기</span>
         </a>
 
         <a href="NCL_Fleet_2026.html" class="fleet-card">
-            <span class="fleet-tag tag-contemporary">프리스타일</span>
+            <img class="fleet-img" src="assets/img/lines/ncl-800.webp" width="800" height="450" alt="Norwegian Aqua" loading="lazy">
+            <span class="fleet-tag">프리스타일</span>
             <span class="fleet-name">Norwegian Cruise Line</span>
             <p class="fleet-desc">자유로운 크루징과 프리마 클래스. Norwegian Edge 리뉴얼 데이터.</p>
+            <span class="fleet-meta"><span><b>40.4</b> 평균 1인당 톤수</span><span><b>20</b>척</span></span>
             <span class="btn-view">상세 데이터 보기</span>
         </a>
 
         <a href="Princess_Fleet_2026.html" class="fleet-card">
-            <span class="fleet-tag tag-premium">클래식/IT기술</span>
+            <img class="fleet-img" src="assets/img/lines/princess-800.webp" width="800" height="450" alt="알래스카 항구의 프린세스 크루즈선" loading="lazy">
+            <span class="fleet-tag">클래식/IT기술</span>
             <span class="fleet-name">Princess Cruises</span>
             <p class="fleet-desc">메달리온 클래스 기술력과 스피어 클래스 신조선 데이터 리포트.</p>
+            <span class="fleet-meta"><span><b>40.2</b> 평균 1인당 톤수</span><span><b>17</b>척</span></span>
             <span class="btn-view">상세 데이터 보기</span>
         </a>
 
         <a href="Celebrity_Fleet_2026.html" class="fleet-card">
-            <span class="fleet-tag tag-premium">모던 럭셔리</span>
+            <img class="fleet-img" src="assets/img/lines/celebrity-800.webp" width="800" height="450" alt="알래스카 항구에 정박한 Celebrity Edge" loading="lazy">
+            <span class="fleet-tag">모던 럭셔리</span>
             <span class="fleet-name">Celebrity Cruises</span>
             <p class="fleet-desc">세련된 디자인의 엣지 클래스와 'Revolution' 리뉴얼 프로젝트 현황.</p>
+            <span class="fleet-meta"><span><b>44.0</b> 평균 1인당 톤수</span><span><b>15</b>척</span></span>
             <span class="btn-view">상세 데이터 보기</span>
         </a>
 
         <a href="Virgin_Voyages_2026.html" class="fleet-card">
-            <span class="fleet-tag tag-premium">성인 전용</span>
+            <img class="fleet-img" src="assets/img/lines/virgin-800.webp" width="800" height="450" alt="바르셀로나 항구의 Valiant Lady" loading="lazy">
+            <span class="fleet-tag">성인 전용</span>
             <span class="fleet-name">Virgin Voyages</span>
             <p class="fleet-desc">리처드 브랜슨의 혁신적인 선단. 레이디 쉽 클래스의 올 인클루시브 정보.</p>
+            <span class="fleet-meta"><span><b>39.8</b> 평균 1인당 톤수</span><span><b>4</b>척</span></span>
             <span class="btn-view">상세 데이터 보기</span>
         </a>
 
         <a href="MSC_Fleet_2026.html" class="fleet-card">
-            <span class="fleet-tag tag-contemporary">유럽/성장</span>
+            <img class="fleet-img" src="assets/img/lines/msc-800.webp" width="800" height="450" alt="MSC World America" loading="lazy">
+            <span class="fleet-tag">유럽/성장</span>
             <span class="fleet-name">MSC Cruises</span>
             <p class="fleet-desc">월드 클래스 중심의 급성장 선사. 르네상스 프로젝트 및 최신 선단 정보.</p>
+            <span class="fleet-meta"><span><b>30.2</b> 평균 1인당 톤수</span><span><b>25</b>척</span></span>
             <span class="btn-view">상세 데이터 보기</span>
         </a>
 
         <a href="Carnival_Fleet_2026.html" class="fleet-card">
-            <span class="fleet-tag tag-contemporary">엔터테인먼트</span>
+            <img class="fleet-img" src="assets/img/lines/carnival-800.webp" width="800" height="450" alt="Carnival Celebration" loading="lazy">
+            <span class="fleet-tag">엔터테인먼트</span>
             <span class="fleet-name">Carnival Cruise Line</span>
             <p class="fleet-desc">'The Fun Ships'. 선샤인 클래스 전면 개조 및 엑셀 클래스 정보.</p>
+            <span class="fleet-meta"><span><b>36.3</b> 평균 1인당 톤수</span><span><b>30</b>척</span></span>
             <span class="btn-view">상세 데이터 보기</span>
         </a>
 
         
 
         <a href="Costa_Fleet_2026.html" class="fleet-card">
-            <span class="fleet-tag tag-contemporary">이탈리안 스타일</span>
+            <img class="fleet-img" src="assets/img/lines/costa-800.webp" width="800" height="450" alt="Costa Toscana" loading="lazy">
+            <span class="fleet-tag">이탈리안 스타일</span>
             <span class="fleet-name">Costa Cruises</span>
             <p class="fleet-desc">이탈리아의 감성을 담은 선단. 높은 공간 효율성과 엑셀런스 클래스 정보.</p>
+            <span class="fleet-meta"><span><b>29.5</b> 평균 1인당 톤수</span><span><b>8</b>척</span></span>
             <span class="btn-view">상세 데이터 보기</span>
         </a>
 
@@ -268,46 +373,58 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         
         <a href="Holland_America_Fleet_2026.html" class="fleet-card">
-            <span class="fleet-tag tag-premium">전통/클래식</span>
+            <img class="fleet-img" src="assets/img/lines/hal-800.webp" width="800" height="450" alt="스캐그웨이 피오르드에 정박한 Koningsdam" loading="lazy">
+            <span class="fleet-tag">전통/클래식</span>
             <span class="fleet-name">Holland America Line</span>
             <p class="fleet-desc">150년 전통의 품격 있는 크루징. 중형 선박이 주는 안락함과 피나클 클래스의 최신 시설 정보.</p>
+            <span class="fleet-meta"><span><b>41.0</b> 평균 1인당 톤수</span><span><b>11</b>척</span></span>
             <span class="btn-view">상세 데이터 보기</span>
         </a>
         <a href="Azamara_Fleet_2026.html" class="fleet-card">
-            <span class="fleet-tag tag-premium">부티크/데스티네이션</span>
+            <img class="fleet-img" src="assets/img/lines/azamara-800.webp" width="800" height="450" alt="Azamara Onward" loading="lazy">
+            <span class="fleet-tag">부티크/데스티네이션</span>
             <span class="fleet-name">Azamara</span>
             <p class="fleet-desc">소형 선박만의 세밀한 기항지 탐색과 프리미엄 서비스. R-클래스 전 선단 데이터.</p>
+            <span class="fleet-meta"><span><b>44.0</b> 평균 1인당 톤수</span><span><b>4</b>척</span></span>
             <span class="btn-view">상세 데이터 보기</span>
         </a>
 
         <a href="Oceania_Fleet_2026.html" class="fleet-card">
-            <span class="fleet-tag tag-premium">미식/어퍼프리미엄</span>
+            <img class="fleet-img" src="assets/img/lines/oceania-800.webp" width="800" height="450" alt="Oceania Vista" loading="lazy">
+            <span class="fleet-tag">미식/어퍼프리미엄</span>
             <span class="fleet-name">Oceania Cruises</span>
             <p class="fleet-desc">바다 위 최고의 요리로 불리는 독보적 미식 선사. 우아한 인테리어와 압도적인 1인당 공간 비율 데이터.</p>
+            <span class="fleet-meta"><span><b>51.5</b> 평균 1인당 톤수</span><span><b>8</b>척</span></span>
             <span class="btn-view">상세 데이터 보기</span>
         </a>
     </div>
 
-    <div class="category-title">Ultra-Luxury & Expedition</div>
+    <h2 class="category-title">Ultra-luxury &amp; Expedition <span>3개 선사</span></h2>
     <div class="fleet-grid">
         <a href="Silversea_Fleet_2026.html" class="fleet-card">
-            <span class="fleet-tag tag-luxury">초호화/탐험</span>
+            <img class="fleet-img" src="assets/img/lines/silversea-800.webp" width="800" height="450" alt="Silver Dawn" loading="lazy">
+            <span class="fleet-tag">초호화/탐험</span>
             <span class="fleet-name">Silversea Cruises</span>
             <p class="fleet-desc">전 객실 스위트와 집사 서비스. 압도적인 공간 비율과 노바 클래스 데이터.</p>
+            <span class="fleet-meta"><span><b>71.5</b> 평균 1인당 톤수</span><span><b>12</b>척</span></span>
             <span class="btn-view">상세 데이터 보기</span>
         </a>
 
         <a href="Regent_Fleet_2026.html" class="fleet-card">
-            <span class="fleet-tag tag-luxury">올 인클루시브</span>
+            <img class="fleet-img" src="assets/img/lines/regent-800.webp" width="800" height="450" alt="Seven Seas Grandeur" loading="lazy">
+            <span class="fleet-tag">올 인클루시브</span>
             <span class="fleet-name">Regent Seven Seas</span>
             <p class="fleet-desc">세상에서 가장 럭셔리한 선단. 익스플로러 클래스 중심의 하이엔드 정보.</p>
+            <span class="fleet-meta"><span><b>71.8</b> 평균 1인당 톤수</span><span><b>7</b>척</span></span>
             <span class="btn-view">상세 데이터 보기</span>
         </a>
 
         <a href="Crystal_Fleet_2026.html" class="fleet-card">
-            <span class="fleet-tag tag-luxury">공간의 정점</span>
+            <img class="fleet-img" src="assets/img/lines/crystal-800.webp" width="800" height="450" alt="Crystal Serenity" loading="lazy">
+            <span class="fleet-tag">공간의 정점</span>
             <span class="fleet-name">Crystal Cruises</span>
             <p class="fleet-desc">2023년 재건축을 통한 극강의 1인당 톤수 데이터 및 신규 비전 리포트.</p>
+            <span class="fleet-meta"><span><b>90.8</b> 평균 1인당 톤수</span><span><b>3</b>척</span></span>
             <span class="btn-view">상세 데이터 보기</span>
         </a>
 
@@ -315,8 +432,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <footer>
-        <p>House of Dreams · 진우컴퍼니 (Jinwoo Company)</p>
-        <p><a href="about.html">회사 소개</a> · <a href="mailto:hyun@houseofdreams.co.kr">hyun@houseofdreams.co.kr</a></p>
+        <p class="photo-credit">사진 House of Dreams · <a href="https://commons.wikimedia.org/wiki/File:Icon_of_the_Seas_(cropped).jpg">Chakie2</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, Wikimedia Commons (16:9로 잘라 사용) · <a href="https://commons.wikimedia.org/wiki/File:Norwegian_Aqua_(cropped).jpg">Oleg Yunakov</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, Wikimedia Commons (16:9로 잘라 사용) · <a href="https://commons.wikimedia.org/wiki/File:MSC_World_America_(cropped).jpg">JPD115</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, Wikimedia Commons (16:9로 잘라 사용) · <a href="https://commons.wikimedia.org/wiki/File:Carnival_Celebration_in_Funchal_(cropped).jpg">Ianbeyer</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, Wikimedia Commons (16:9로 잘라 사용) · <a href="https://commons.wikimedia.org/wiki/File:Costa_Toscana_Festival_di_Sanremo_2026.jpg">Ferdinando Traversa</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, Wikimedia Commons (16:9로 잘라 사용) · <a href="https://commons.wikimedia.org/wiki/File:Kreuzfahrtschiff-AzamaraOnward-Portovenere-Ligurien-Italien.jpg">DeeJay05</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, Wikimedia Commons (16:9로 잘라 사용) · <a href="https://commons.wikimedia.org/wiki/File:Oceania_Vista_in_port_at_Istanbul_(1).png">RL0919</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, Wikimedia Commons (16:9로 잘라 사용) · <a href="https://commons.wikimedia.org/wiki/File:Silver_Dawn_en_Visby_02.jpg">Bene Riobó</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, Wikimedia Commons (16:9로 잘라 사용) · <a href="https://commons.wikimedia.org/wiki/File:Regent_Seven_Seas_Grandeur_(53824101578).jpg">Mustang Joe</a>, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>, Wikimedia Commons (16:9로 잘라 사용) · <a href="https://commons.wikimedia.org/wiki/File:Crystal_Serenity_Under_Way.jpg">A Guy Named Nyal</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0">CC BY-SA 2.0</a>, Wikimedia Commons (16:9로 잘라 사용)</p>
     </footer>
 </div>
 

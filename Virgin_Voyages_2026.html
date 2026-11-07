@@ -4,213 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Virgin Voyages Fleet Dashboard 2026</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap');
-        
-        :root {
-            --virgin-red: #E31837; /* 버진 그룹 상징 레드 */
-            --virgin-black: #1A1A1A;
-            --virgin-silver: #E2E8F0;
-            --bg-gray: #0F172A; /* 다크 모드 스타일 UI */
-            --card-dark: #1E293B;
-            --text-white: #F8FAFC;
-            --text-light: #94A3B8;
-        }
-
-        body {
-            font-family: 'Pretendard', sans-serif;
-            background-color: var(--bg-gray);
-            color: var(--text-white);
-            margin: 0;
-            padding: 40px 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        header h1 {
-            color: var(--virgin-red);
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .class-group {
-            margin-bottom: 60px;
-        }
-
-        .class-header {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--virgin-red);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--virgin-red);
-            display: flex;
-            align-items: center;
-        }
-
-        .ship-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .ship-card {
-            background: var(--card-dark);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            border: 1px solid #334155;
-        }
-
-        .ship-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--virgin-red);
-            box-shadow: 0 0 20px rgba(227, 24, 55, 0.2);
-        }
-
-        .ship-name {
-            display: block;
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--text-white);
-            min-height: 1.5em;
-        }
-
-        .data-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-
-        .data-label {
-            color: var(--text-light);
-        }
-
-        .data-value {
-            font-weight: 600;
-        }
-
-        .refit-box {
-            margin-top: 15px;
-            padding: 12px;
-            background: rgba(227, 24, 55, 0.1);
-            border: 1px solid rgba(227, 24, 55, 0.2);
-            border-radius: 8px;
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--virgin-red);
-            font-weight: 600;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 80px;
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-        /* 상단 내비게이션 바 디자인 */
-.nav-bar {
-    background-color: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
-    padding: 10px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-
-.nav-home {
-    font-weight: 800;
-    color: #0F172A;
-    text-decoration: none;
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-}
-
-.nav-home::before {
-    content: '🏠';
-    margin-right: 8px;
-}
-
-.nav-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.drop-btn {
-    background: #0F172A;
-    color: white;
-    padding: 8px 16px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #ffffff;
-    min-width: 220px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-    z-index: 1;
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
-    margin-top: 5px;
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-.dropdown-content a {
-    color: #334155;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    font-size: 0.9rem;
-    border-bottom: 1px solid #f1f5f9;
-}
-
-.dropdown-content a:hover {
-    background-color: #f8fafc;
-    color: #3b82f6;
-}
-
-.nav-dropdown:hover .dropdown-content {
-    display: block;
-}
-    </style>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="assets/fleet.css">
+    <style>:root { --brand: #E31837; }</style>
 </head>
 <body>
 <nav class="nav-bar">
     <div class="nav-container">
-        <a href="index.html" class="nav-home">CRUISE HUB</a>
+        <a href="index.html" class="nav-home">Cruise Hub</a>
         <div class="nav-dropdown">
-            <button class="drop-btn">다른 선사 보기 ▼</button>
+            <button class="drop-btn" aria-haspopup="true">다른 선사 <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
             <div class="dropdown-content">
                 <a href="Royal_Caribbean_2026.html">로얄 캐리비안</a>
                 <a href="MSC_Fleet_2026.html">MSC 크루즈</a>
@@ -219,22 +24,30 @@
                 <a href="Costa_Fleet_2026.html">코스타</a>
                 <a href="Princess_Fleet_2026.html">프린세스</a>
                 <a href="Celebrity_Fleet_2026.html">셀러브리티</a>
-                <a href="Virgin_Voyages_2026.html">버진 보야지</a>
+                <a href="Virgin_Voyages_2026.html" aria-current="page">버진 보야지</a>
                 <a href="Holland_America_Fleet_2026.html">홀란드 아메리카</a>
                 <a href="Azamara_Fleet_2026.html">아자마라</a>
                 <a href="Oceania_Fleet_2026.html">오세아니아</a>
                 
-                <a href="Silversea_Fleet_2026.html" style="background-color: #f8fafc; font-weight: bold;">[럭셔리] 실버씨</a>
-                <a href="Regent_Fleet_2026.html" style="background-color: #f8fafc; font-weight: bold;">[럭셔리] 리젠트 세븐시즈</a>
-                <a href="Crystal_Fleet_2026.html" style="background-color: #f8fafc; font-weight: bold;">[럭셔리] 크리스탈</a>
+                <span class="drop-label">럭셔리</span>
+                <a href="Silversea_Fleet_2026.html">실버씨</a>
+                <a href="Regent_Fleet_2026.html">리젠트 세븐시즈</a>
+                <a href="Crystal_Fleet_2026.html">크리스탈</a>
             </div>
         </div>
     </div>
 </nav>
 <div class="container">
-    <header>
+    <header class="has-photo">
+        <div class="header-text">
+        <div class="header-text">
+        <div class="header-text">
         <h1>Virgin Voyages Fleet</h1>
         <p>버진 보야지 선박별 상세 제원 및 현황 (2026)</p>
+        </div>
+        </div>
+        </div>
+        <figure class="line-photo"><img src="assets/img/lines/virgin-1600.webp" srcset="assets/img/lines/virgin-800.webp 800w, assets/img/lines/virgin-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 560px" width="1600" height="900" alt="바르셀로나 항구의 Valiant Lady" fetchpriority="high"></figure>
     </header>
 
     <div class="class-group">
@@ -244,7 +57,7 @@
                 <span class="ship-name">Brilliant Lady</span>
                 <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2025</span></div>
                 <div class="data-row"><span class="data-label">톤수</span><span class="data-value">110,000 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">39.8</span></div>
+                <div class="data-row is-space" style="--v: 39.8"><span class="data-label">1인당 톤수 (GT/승객)</span><span class="data-value">39.8</span></div>
                 <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.39</span></div>
                 <div class="refit-box">신조선 (New Delivery)</div>
             </div>
@@ -252,7 +65,7 @@
                 <span class="ship-name">Resilient Lady</span>
                 <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2023</span></div>
                 <div class="data-row"><span class="data-label">톤수</span><span class="data-value">110,000 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">39.8</span></div>
+                <div class="data-row is-space" style="--v: 39.8"><span class="data-label">1인당 톤수 (GT/승객)</span><span class="data-value">39.8</span></div>
                 <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.39</span></div>
                 <div class="refit-box">리모델링: -</div>
             </div>
@@ -260,7 +73,7 @@
                 <span class="ship-name">Valiant Lady</span>
                 <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2022</span></div>
                 <div class="data-row"><span class="data-label">톤수</span><span class="data-value">110,000 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">39.8</span></div>
+                <div class="data-row is-space" style="--v: 39.8"><span class="data-label">1인당 톤수 (GT/승객)</span><span class="data-value">39.8</span></div>
                 <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.39</span></div>
                 <div class="refit-box">리모델링: 2024</div>
             </div>
@@ -268,7 +81,7 @@
                 <span class="ship-name">Scarlet Lady</span>
                 <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2020</span></div>
                 <div class="data-row"><span class="data-label">톤수</span><span class="data-value">110,000 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">39.8</span></div>
+                <div class="data-row is-space" style="--v: 39.8"><span class="data-label">1인당 톤수 (GT/승객)</span><span class="data-value">39.8</span></div>
                 <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">2.39</span></div>
                 <div class="refit-box">리모델링: 2024</div>
             </div>
@@ -276,6 +89,7 @@
     </div>
 
     <div class="footer">
+        <p class="photo-credit">사진 House of Dreams</p>
         <p>* 버진 보야지는 'Adult-only' 선사로, 만 18세 미만은 승선할 수 없습니다.</p>
         <p>** 모든 선박은 이탈리아 Fincantieri 사에서 건조되었으며, 디자인이 동일한 자매 선박들입니다.</p>
         <p>© 2026 Fleet Intelligence Service - Virgin Voyages Edition</p>

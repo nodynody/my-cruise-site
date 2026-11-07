@@ -4,228 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crystal Cruises Fleet Dashboard 2026</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700&display=swap');
-        
-        :root {
-            --crystal-teal: #007681; /* 크리스탈 시그니처 티알 */
-            --crystal-gold: #D4AF37;
-            --crystal-light: #F9FBFC;
-            --major-accent: #B22222;
-            --bg-gray: #F3F4F6;
-            --card-white: #FFFFFF;
-            --text-dark: #1F2937;
-            --text-light: #6B7280;
-        }
-
-        body {
-            font-family: 'Pretendard', sans-serif;
-            background-color: var(--bg-gray);
-            color: var(--text-dark);
-            margin: 0;
-            padding: 40px 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        header h1 {
-            color: var(--crystal-teal);
-            font-size: 2.2rem;
-            font-weight: 300;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            color: var(--text-light);
-            font-size: 1rem;
-            letter-spacing: 1px;
-        }
-
-        .class-group {
-            margin-bottom: 60px;
-        }
-
-        .class-header {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--crystal-teal);
-            margin-bottom: 25px;
-            padding-left: 15px;
-            border-left: 4px solid var(--crystal-teal);
-            display: flex;
-            align-items: center;
-        }
-
-        .ship-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .ship-card {
-            background: var(--card-white);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            border: 1px solid #E5E7EB;
-        }
-
-        .ship-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--crystal-teal);
-            box-shadow: 0 20px 35px rgba(0, 118, 129, 0.1);
-        }
-
-        .ship-name {
-            display: block;
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--crystal-teal);
-        }
-
-        .data-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-            border-bottom: 1px solid #F3F4F6;
-            padding-bottom: 6px;
-        }
-
-        .data-label {
-            color: var(--text-light);
-        }
-
-        .data-value {
-            font-weight: 600;
-        }
-
-        .refit-box {
-            margin-top: 20px;
-            padding: 12px;
-            background: #F0F9FA;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--crystal-teal);
-        }
-
-        .is-major {
-            color: var(--major-accent);
-            font-weight: 700;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 80px;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            border-top: 1px solid #E5E7EB;
-            padding-top: 40px;
-        }
-        /* 상단 내비게이션 바 디자인 */
-.nav-bar {
-    background-color: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
-    padding: 10px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-
-.nav-home {
-    font-weight: 800;
-    color: #0F172A;
-    text-decoration: none;
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-}
-
-.nav-home::before {
-    content: '🏠';
-    margin-right: 8px;
-}
-
-.nav-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.drop-btn {
-    background: #0F172A;
-    color: white;
-    padding: 8px 16px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #ffffff;
-    min-width: 220px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-    z-index: 1;
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
-    margin-top: 5px;
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-.dropdown-content a {
-    color: #334155;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    font-size: 0.9rem;
-    border-bottom: 1px solid #f1f5f9;
-}
-
-.dropdown-content a:hover {
-    background-color: #f8fafc;
-    color: #3b82f6;
-}
-
-.nav-dropdown:hover .dropdown-content {
-    display: block;
-}
-    </style>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="assets/fleet.css">
+    <style>:root { --brand: #007681; }</style>
 </head>
 <body>
 <nav class="nav-bar">
     <div class="nav-container">
-        <a href="index.html" class="nav-home">CRUISE HUB</a>
+        <a href="index.html" class="nav-home">Cruise Hub</a>
         <div class="nav-dropdown">
-            <button class="drop-btn">다른 선사 보기 ▼</button>
+            <button class="drop-btn" aria-haspopup="true">다른 선사 <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
             <div class="dropdown-content">
                 <a href="Royal_Caribbean_2026.html">로얄 캐리비안</a>
                 <a href="MSC_Fleet_2026.html">MSC 크루즈</a>
@@ -239,17 +29,21 @@
                 <a href="Azamara_Fleet_2026.html">아자마라</a>
                 <a href="Oceania_Fleet_2026.html">오세아니아</a>
                 
-                <a href="Silversea_Fleet_2026.html" style="background-color: #f8fafc; font-weight: bold;">[럭셔리] 실버씨</a>
-                <a href="Regent_Fleet_2026.html" style="background-color: #f8fafc; font-weight: bold;">[럭셔리] 리젠트 세븐시즈</a>
-                <a href="Crystal_Fleet_2026.html" style="background-color: #f8fafc; font-weight: bold;">[럭셔리] 크리스탈</a>
+                <span class="drop-label">럭셔리</span>
+                <a href="Silversea_Fleet_2026.html">실버씨</a>
+                <a href="Regent_Fleet_2026.html">리젠트 세븐시즈</a>
+                <a href="Crystal_Fleet_2026.html" aria-current="page">크리스탈</a>
             </div>
         </div>
     </div>
 </nav>
 <div class="container">
-    <header>
-        <h1>CRYSTAL CRUISES</h1>
+    <header class="has-photo">
+        <div class="header-text">
+        <h1>Crystal Cruises</h1>
         <p>EXCEPTIONAL AT SEA</p>
+        </div>
+        <figure class="line-photo"><img src="assets/img/lines/crystal-1600.webp" srcset="assets/img/lines/crystal-800.webp 800w, assets/img/lines/crystal-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 560px" width="1600" height="900" alt="Crystal Serenity" fetchpriority="high"></figure>
     </header>
 
     <div class="class-group">
@@ -259,7 +53,7 @@
                 <span class="ship-name">Crystal Serenity</span>
                 <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2003</span></div>
                 <div class="data-row"><span class="data-label">톤수</span><span class="data-value">68,870 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">93.0</span></div>
+                <div class="data-row is-space" style="--v: 93.0"><span class="data-label">1인당 톤수 (GT/승객)</span><span class="data-value">93.0</span></div>
                 <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">1.13</span></div>
                 <div class="refit-box">전면 재건축: <span class="is-major">2023**</span></div>
             </div>
@@ -267,7 +61,7 @@
                 <span class="ship-name">Crystal Symphony</span>
                 <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">1995</span></div>
                 <div class="data-row"><span class="data-label">톤수</span><span class="data-value">51,044 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">84.0</span></div>
+                <div class="data-row is-space" style="--v: 84.0"><span class="data-label">1인당 톤수 (GT/승객)</span><span class="data-value">84.0</span></div>
                 <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">1.15</span></div>
                 <div class="refit-box">전면 재건축: <span class="is-major">2023**</span></div>
             </div>
@@ -278,17 +72,18 @@
         <div class="class-header">차세대 신조선 (Upcoming Fleet)</div>
         <div class="ship-grid">
             <div class="ship-card">
-                <span class="ship-name">New Build Crystal 1</span>
+                <span class="ship-name">Crystal Grace</span>
                 <div class="data-row"><span class="data-label">건조년도</span><span class="data-value">2028 예정</span></div>
-                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">69,000 GT</span></div>
-                <div class="data-row"><span class="data-label">1인당 톤수</span><span class="data-value">100+</span></div>
-                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">1.00 미만</span></div>
-                <div class="refit-box">차세대 최첨단 럭셔리 선박</div>
+                <div class="data-row"><span class="data-label">톤수</span><span class="data-value">62,000 GT</span></div>
+                <div class="data-row is-space" style="--v: 95.4"><span class="data-label">1인당 톤수 (GT/승객)</span><span class="data-value">95.4</span></div>
+                <div class="data-row"><span class="data-label">승무원당 승객</span><span class="data-value">-</span></div>
+                <div class="refit-box">신조선 (2028년 봄 예정)</div>
             </div>
         </div>
     </div>
 
     <div class="footer">
+        <p class="photo-credit">사진 <a href="https://commons.wikimedia.org/wiki/File:Crystal_Serenity_Under_Way.jpg">A Guy Named Nyal</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0">CC BY-SA 2.0</a>, Wikimedia Commons (16:9로 잘라 사용)</p>
         <p>* 크리스탈 크루즈는 2023년 리뉴얼을 통해 승객 정원을 대폭 줄여 업계 최고 수준의 공간 비율을 확보했습니다.</p>
         <p>** 표시는 기존 선박을 뼈대만 남기고 완전히 새로 구축한 '브랜드 뉴' 급 리모델링을 의미합니다.</p>
         <p>© 2026 Fleet Intelligence Service - Crystal Edition</p>
