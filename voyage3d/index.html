@@ -44,17 +44,12 @@ button[aria-pressed="true"]::before{content:"";width:6px;height:6px;border-radiu
 canvas{display:block;width:100%;height:100%;touch-action:none}
 #loading{position:absolute;inset:0;display:grid;place-items:center;color:#3b4a50;font-size:13px;background:#c9d4d8;transition:opacity .6s}
 #loading.done{opacity:0;pointer-events:none}
-.modal{position:fixed;inset:0;background:rgba(15,16,18,.82);display:none;place-items:center;z-index:10;padding:16px}
-.modal.open{display:grid}
-.modal figure{max-width:min(1100px,100%);background:var(--bar);border-radius:10px;overflow:hidden}
-.modal img{display:block;width:100%;height:auto}
-.modal figcaption{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 14px;font-size:12px;color:var(--muted)}
 .tabs{display:flex;gap:6px}
 .toast{position:absolute;left:50%;top:16px;transform:translateX(-50%);background:rgba(244,241,234,.95);border:1px solid var(--bar-line);
   border-radius:20px;padding:6px 14px;font-size:12px;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.show{opacity:1}
 /* embed mode (?embed=1): used inside the houseofdreams home page */
-.embed header h1,.embed header .sub,.embed #btnRender,.embed .hint{display:none}
+.embed header h1,.embed header .sub,.embed .hint{display:none}
 .embed header{padding:8px 16px}
 .full-link{display:none !important;text-decoration:none}
 .embed .full-link{display:inline-flex !important}
@@ -82,7 +77,6 @@ canvas{display:block;width:100%;height:100%;touch-action:none}
       <button id="btnLights" aria-pressed="false">선실 불 켜기</button>
       <button id="btnSail" aria-pressed="false">출항하기</button>
       <button id="btnHorn">뱃고동</button>
-      <button id="btnRender">Blender 원본 렌더</button>
     </div>
   </header>
   <main id="stage">
@@ -113,18 +107,6 @@ canvas{display:block;width:100%;height:100%;touch-action:none}
   </footer>
 </div>
 
-<div class="modal" id="modal">
-  <figure>
-    <img id="modalImg" src="blender_render.jpg" alt="Blender 원본 렌더">
-    <figcaption>
-      <div class="tabs">
-        <button data-src="blender_render.jpg" aria-pressed="true">Blender 렌더</button>
-        <button data-src="reference.jpg" aria-pressed="false">ComfyUI 참조 이미지</button>
-      </div>
-      <button id="modalClose">닫기</button>
-    </figcaption>
-  </figure>
-</div>
 
 <script>
   // Opened by double-click (file://): browsers block fetching local files, so load the bundled assets instead.
@@ -447,16 +429,6 @@ btnSail.onclick = () => {
   if (sailing) { horn(); toast('출항! 다음 항구로'); }
 };
 
-// ---- render modal
-const modal = document.getElementById('modal'), modalImg = document.getElementById('modalImg');
-document.getElementById('btnRender').onclick = () => modal.classList.add('open');
-document.getElementById('modalClose').onclick = () => modal.classList.remove('open');
-modal.onclick = e => { if (e.target === modal) modal.classList.remove('open'); };
-modal.querySelectorAll('.tabs button').forEach(b => b.onclick = () => {
-  modalImg.src = b.dataset.src;
-  modal.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-pressed', x === b));
-});
-addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('open'); });
 
 // ---- click ship -> horn
 const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(); let downAt = null;
