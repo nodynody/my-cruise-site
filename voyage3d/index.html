@@ -48,6 +48,11 @@ canvas{display:block;width:100%;height:100%;touch-action:none}
 .toast{position:absolute;left:50%;top:16px;transform:translateX(-50%);background:rgba(244,241,234,.95);border:1px solid var(--bar-line);
   border-radius:20px;padding:6px 14px;font-size:12px;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.show{opacity:1}
+/* photoreal still for the current camera preset, laid over the live canvas */
+#photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity .7s ease;pointer-events:none;z-index:1}
+#photo.on{opacity:1}
+#photoTag{position:absolute;left:12px;bottom:12px;z-index:2;background:rgba(244,241,234,.92);border:1px solid var(--bar-line);border-radius:14px;padding:4px 10px;font-size:11px;color:var(--ink);opacity:0;transition:opacity .5s;pointer-events:none}
+#photo.on + #photoTag{opacity:1}
 /* embed mode (?embed=1): used inside the houseofdreams home page */
 .embed header h1,.embed header .sub,.embed .hint{display:none}
 .embed header{padding:8px 16px}
@@ -82,6 +87,8 @@ canvas{display:block;width:100%;height:100%;touch-action:none}
   <main id="stage">
     <div id="loading">배를 항구에 대는 중…</div>
     <div class="toast" id="toast"></div>
+    <img id="photo" alt="" aria-hidden="true">
+    <span id="photoTag">실사 렌더 · 드래그하면 3D로 둘러봐요</span>
     <button id="touchGate" aria-label="3D 둘러보기 시작"><span>탭해서 둘러보기</span></button>
   </main>
   <footer>
@@ -184,21 +191,27 @@ scene.add(water);
 const backdropMat = new THREE.MeshBasicMaterial({ fog: false, transparent: true, depthWrite: false });
 const bdImg = new Image();
 bdImg.onload = () => {
-  // fade the left/right/top edges so the photo melts into the sky colour
-  const c = document.createElement('canvas'); c.width = bdImg.width; c.height = bdImg.height;
-  const g = c.getContext('2d'); g.drawImage(bdImg, 0, 0);
+  // mirror-tile the skyline 3x (same as the Cycles renders), keep only hills + city, fade the far ends
+  const c = document.createElement('canvas'); c.width = 4096; c.height = Math.round(4096 / 3 * bdImg.height / bdImg.width);
+  const g = c.getContext('2d'), tw = c.width / 3;
+  for (let i = 0; i < 3; i++) {
+    g.save();
+    if (i !== 1) { g.translate((i + 1) * tw, 0); g.scale(-1, 1); g.drawImage(bdImg, 0, 0, tw, c.height); }
+    else g.drawImage(bdImg, tw, 0, tw, c.height);
+    g.restore();
+  }
   g.globalCompositeOperation = 'destination-in';
   const h = g.createLinearGradient(0, 0, c.width, 0);
-  h.addColorStop(0, 'rgba(0,0,0,0)'); h.addColorStop(0.16, '#000'); h.addColorStop(0.84, '#000'); h.addColorStop(1, 'rgba(0,0,0,0)');
+  h.addColorStop(0, 'rgba(0,0,0,0)'); h.addColorStop(0.06, '#000'); h.addColorStop(0.94, '#000'); h.addColorStop(1, 'rgba(0,0,0,0)');
   g.fillStyle = h; g.fillRect(0, 0, c.width, c.height);
   const v = g.createLinearGradient(0, 0, 0, c.height);
-  v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(0.35, '#000'); v.addColorStop(1, '#000');
+  v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(0.5, 'rgba(0,0,0,0)'); v.addColorStop(0.58, '#000'); v.addColorStop(1, '#000');
   g.fillStyle = v; g.fillRect(0, 0, c.width, c.height);
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
   backdropMat.map = t; backdropMat.needsUpdate = true;
 };
 bdImg.src = asset('backdrop.jpg');
-const BW = 2400, BH = BW / 2.379;
+const BH = 2400 / 2.379 * 1.25, BW = BH * 2.379 * 3;   // same plane as the Blender render backdrop
 const backdrop = new THREE.Mesh(new THREE.PlaneGeometry(BW, BH), backdropMat);
 backdrop.position.set(0,BH / 2 - BH * 0.043 - 4, -1600);
 backdrop.layers.set(1);           // seen by the main camera only, not mirrored by the water
@@ -269,6 +282,9 @@ function windowMaterial(name) {
     map: bandTexture(kind, false, variant + 1), emissiveMap: bandTexture(kind, true, variant + 1),
     side: THREE.DoubleSide, emissive: 0xffffff, emissiveIntensity: 0, roughness: matte ? 0.4 : 0.15, metalness: matte ? 0 : 0.35
   });
+  if (kind === 'balcony') {  // balcony bands wrap round the stern, so repeat the pattern to keep cabin width
+    for (const t of [m.map, m.emissiveMap]) { t.wrapS = THREE.RepeatWrapping; t.repeat.x = 2.2; }
+  }
   winMats.push(m); winCache[key] = m; return m;
 }
 
@@ -350,6 +366,7 @@ function setTheme(name) {
   tween.to = themeState(name); tween.t = 0;
   document.querySelectorAll('#themeMenu button').forEach(b => b.setAttribute('aria-pressed', b.dataset.theme === name));
   setLights(THEMES[name].lights);
+  preloadTheme(name);
   document.querySelector('.sub').textContent = 'Port Vell · ' + { afternoon: '늦은 오후', sunset: '지중해 노을', night: '항구의 밤' }[name];
 }
 applyTheme(cur);
@@ -367,12 +384,13 @@ btnLights.onclick = () => setLights(!lightsOn);
 // ---- camera views
 const VIEWS = {
   harbor: { pos: [45, 52, 205], target: [-12, 6, 0] },
-  promenade: { pos: [-110, 4.2, 48], target: [-20, 11, -2] },
+  promenade: { pos: [-101.5, 4.2, 50.5], target: [-20, 11, -2] },
   sea:    { pos: [-20, 4, 95],  target: [0, 10, 0] },
   bow:    { pos: [72, 10, 34],  target: [36, 6, 0] },
-  deck:   { pos: [-46, 27, 16], target: [4, 17.5, 0] },
+  deck:   { pos: [38, 30, 24], target: [-12, 18, 0] },
 };
 const camTween = { t: 1, p0: new THREE.Vector3(), p1: new THREE.Vector3(), q0: new THREE.Vector3(), q1: new THREE.Vector3() };
+let presetView = null;   // name of the preset the camera is resting on (null after a drag)
 function goView(name, instant) {
   const v = VIEWS[name];
   camTween.p0.copy(camera.position); camTween.q0.copy(controls.target);
@@ -385,11 +403,40 @@ function goView(name, instant) {
   if (ship) { camTween.p1.add(ship.position); camTween.q1.add(ship.position); }
   camTween.t = instant ? 1 : 0;
   if (instant) { camera.position.copy(camTween.p1); controls.target.copy(camTween.q1); }
+  presetView = name;
   document.querySelectorAll('#views button').forEach(b => b.setAttribute('aria-pressed', b.dataset.view === name));
 }
 document.querySelectorAll('#views button').forEach(b => b.onclick = () => goView(b.dataset.view));
 goView('harbor', true);
-controls.addEventListener('start', () => { camTween.t = 1; });
+controls.addEventListener('start', () => { camTween.t = 1; presetView = null; });
+
+// ---- photoreal stills (Cycles render + AI photo pass) for each preset view × lighting theme.
+// Shown only while the camera rests on a preset and the scene matches what was rendered;
+// any drag hands control back to the live 3D.
+const photoEl = document.getElementById('photo');
+let photoKey = '', photoReady = false;
+const PHOTO_VIEWS = ['harbor', 'promenade', 'sea', 'bow', 'deck'];
+photoEl.onload = () => { photoReady = true; };
+photoEl.onerror = () => { photoReady = false; };
+function wantPhoto() {
+  if (!presetView || camTween.t < 1 || tween.t < 1 || rough || sailing || sailT > 0) return null;
+  if (lightsOn !== THEMES[theme].lights) return null;
+  if (camera.aspect < 1.15) return null;               // portrait screens keep the live 3D
+  return 'photos/' + presetView + '_' + theme + '.jpg';
+}
+function preloadTheme(name) {
+  PHOTO_VIEWS.forEach(v => { const i = new Image(); i.src = asset('photos/' + v + '_' + name + '.jpg'); });
+}
+preloadTheme('afternoon');
+function updatePhoto() {
+  const key = wantPhoto();
+  if (key !== photoKey) {
+    photoKey = key || '';
+    photoEl.classList.remove('on');
+    if (key) { photoReady = false; photoEl.src = asset(key); }
+  }
+  photoEl.classList.toggle('on', !!key && photoReady);
+}
 
 // ---- waves
 let rough = false;
@@ -493,6 +540,7 @@ renderer.setAnimationLoop(() => {
     camera.position.lerpVectors(camTween.p0, camTween.p1, k); controls.target.lerpVectors(camTween.q0, camTween.q1, k);
   }
   controls.update();
+  updatePhoto();
   renderer.render(scene, camera);
 });
 </script>
